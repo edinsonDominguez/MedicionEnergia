@@ -2,15 +2,15 @@ package procesos;
 
 public class ProcesoFactura {
 
-	private int totalPagar;
-	private int subsidioNacion;
-	private int consumoActiva;
+	private double totalPagar;
+	private double subsidioNacion;
+	private double consumoActiva;
 	
 	// Esta varible contiene el valor del alumbrado publico
 	private final int ALUMBRADO_PUBLICO = 5530;
 	
 	
-	public void tomarDatos(int consumo, int tarifa, int subsidio){
+	public void tomarDatos(int consumo, double tarifa, double subsidio){
 			
 		consumoActiva = operarConsumoActiva(consumo, tarifa);
 	
@@ -23,29 +23,101 @@ public class ProcesoFactura {
 	}
 	
 	
-	private int operarSubsidioNacion(int subsidio){
+	private double operarSubsidioNacion(double subsidio){
 		
-		int subsidioBruto = (consumoActiva * subsidio) / 100; 
+		double subsidioBruto = (consumoActiva * subsidio) / 100; 
 		
-		System.out.println("Subsidio bruto: " + subsidioBruto);
+		
+	
 		return subsidioBruto;
 	}
 	
 	
-	private int operarConsumoActiva(int consumo, int tarifa){
+	private double operarConsumoActiva(int consumo, double tarifa){
 		
-		int consumoActiva = 0;
+		double consumoActiva = 0;
 				
 		consumoActiva = consumo * tarifa;
-
 		System.out.println("consumoActiva: " + consumoActiva);
+		
+		double numeroAjustado = ajustarCuenta(consumoActiva);
+	
+		System.out.println("consumoActiva con ajuste " + numeroAjustado);
 		
 		return consumoActiva;
 	}
 	
-	public int mostrarTotal(){
+	
+	private double ajustarCuenta(double consumoActiva) {
+		// Este metodo ajusta el numero en ceros 
 		
-		int total = 0;
+		double ultimoNumero = consumoActiva % 10;
+
+		// Hacemos un casting para eliminar los decimales
+		int castingNumero = (int)ultimoNumero;
+		
+		
+		System.out.println("Ultimo numero " + castingNumero);
+			
+		if(castingNumero == 1){
+			
+			consumoActiva = consumoActiva - 1;
+			
+			
+		}else{
+			if(castingNumero == 2){
+				consumoActiva = consumoActiva - 2;
+					
+			}else{
+				
+				if(castingNumero == 3){
+					consumoActiva = consumoActiva - 3;
+					
+				}else{
+					
+					if(castingNumero == 4){
+						consumoActiva = consumoActiva - 4;
+							
+					}else{
+						if(castingNumero == 5){
+							consumoActiva = consumoActiva - 5;
+						}else{
+							if(castingNumero == 6){
+								consumoActiva = consumoActiva + 4;
+								
+							}else{
+								if(castingNumero == 7){
+									consumoActiva = consumoActiva + 3;
+									
+								}else{
+									if(castingNumero == 8){
+										consumoActiva = consumoActiva + 2;
+										
+									}else{
+										if(castingNumero == 9){
+											consumoActiva = consumoActiva + 1;
+												
+										}
+										
+									}
+								}
+							}
+						}
+						
+					}
+				}
+			}
+		}
+
+		
+		
+		return consumoActiva;
+	}
+
+
+	public double mostrarTotal(){
+		
+		double total = 0;
 		
 		System.out.println("" + totalPagar);
 		
@@ -54,23 +126,35 @@ public class ProcesoFactura {
 		return total;
 	}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// validacion de campos ...
+	
 	public String validarCampos(String consumo, String tarifa, String subsidio){
 		
+		// esta variable contiene los estados de validacion
 		String respuesta = "ok";
 		
 		// Esta variable buscara si en los campos hay una letra.
-		
-		int comprobar = 0;
+		double comprobar = 0;
 		
 		if(consumo.equals("")){
 			respuesta = "consumoVacio";
 		}else{
 			
 			try {
-				comprobar = Integer.parseInt(consumo);
+				comprobar = Double.parseDouble(consumo);
 						
 			} catch (Exception e) {
-				System.out.println("letra en txtConsumo");
+				System.out.println("hay una letra en txtConsumo");
+				respuesta = "letraConsumo";
 			}
 		}
 		
@@ -78,12 +162,12 @@ public class ProcesoFactura {
 			respuesta = "tarifaVacia";
 		}else{
 			
-			
 			try {
-				comprobar = Integer.parseInt(consumo);	
+				comprobar = Double.parseDouble(tarifa);	
 			
 			} catch (Exception e) {
-				System.out.println("letra en tarifa");
+				System.out.println("Hay una letra en txtTarifa");
+				respuesta = "letraTarifa";
 			}
 		}
 		
@@ -91,13 +175,13 @@ public class ProcesoFactura {
 			respuesta = "subsidioVacio";
 		
 		}else{
-		 
+			
 			try {
-				comprobar = Integer.parseInt(subsidio);	
+				comprobar = Double.parseDouble(subsidio);	
 					
 			} catch (Exception e) {
-				System.out.println("letra en subsidio");
-				
+				System.out.println("hay una letra en txtSubsidio");
+				respuesta = "letraSubsidio";
 			}
 		}
 		
