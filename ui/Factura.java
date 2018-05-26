@@ -2,6 +2,7 @@ package ui;
 
 	import javax.swing.*;
 
+import helpers.Componentes;
 import helpers.FormatoPosicion;
 import procesos.ProcesoFactura;
 import procesos.ValidarCampos;
@@ -17,10 +18,13 @@ import java.awt.Font;
 		private JButton registro;
 		private JLabel lblErrorSubsidio, lblErrorTarifa, lblErrorConsumo;
 		
-		// clases 
+		// Clases Logicas
 		ProcesoFactura miProceso;
 		ValidarCampos validar;
+		
+		// Clases de diseño
 		FormatoPosicion pos;
+		Componentes com;
 		
 		// variables validaciones
 		String resultadoConsumo = "", resultadoTarifa = "", resultadoSubsidio = "";
@@ -29,69 +33,61 @@ import java.awt.Font;
 		public Factura() {
 			System.out.println("Esta en la clase uiFactura");
 			
+			// Inicializamos las variables 
 			miProceso = new ProcesoFactura();
 			validar = new ValidarCampos();
 			pos = new FormatoPosicion();
+			com = new Componentes();
 			
-			setSize(1000,1000);
+			setSize(1260,720);
 			setLocationRelativeTo(null);
 			componentes();
 		}
 			
 		private void componentes(){
 			
+			contentPane = com.panelPrincipal();
+			add(contentPane);
 			
-			contentPane = new JPanel();
-			contentPane.setLayout(null);
-				
-			setContentPane(contentPane);
-			
-			JLabel lblTitulo = new JLabel("Registro factura: ");
+			JLabel lblTitulo = com.tituloPrincipal("Registro Factura.");
 			lblTitulo.setBounds(pos.colC, pos.row1, 400, 30);
-			lblTitulo.setFont(new Font("Arial", Font.BOLD, 18));
 			contentPane.add(lblTitulo);
 			
-			JLabel lblConsumo = new JLabel("Consumo: ");
-			lblConsumo.setFont(new Font("Arial", Font.BOLD, 14));
+			JLabel lblConsumo = com.lblCampo("Consumo *");
 			lblConsumo.setBounds(pos.colA, pos.row2, 120, 20);
 			contentPane.add(lblConsumo);
 			
-			txtConsumo = new JTextField();
+			txtConsumo = com.input();
 			txtConsumo.setBounds(pos.colB, pos.row2, 120, 20);
 			contentPane.add(txtConsumo);
 			
 			
-			lblErrorConsumo = new JLabel();
-			lblErrorConsumo.setFont(new Font("Arial", Font.BOLD, 14));
+			lblErrorConsumo = com.lblValidacion("");
 			lblErrorConsumo.setBounds(pos.colC, pos.row2, 120, 20);
 			contentPane.add(lblErrorConsumo);
 			
 			
-			JLabel lblTarifa = new JLabel("Tarifa: ");
-			lblTarifa.setFont(new Font("Arial", Font.BOLD, 14));
+			JLabel lblTarifa = com.lblCampo("Tarifa *");
 			lblTarifa.setBounds(pos.colA, pos.row3, 120, 20);
 			contentPane.add(lblTarifa);
 			
-			txtTarifa = new JTextField();
+			txtTarifa = com.input();
 			txtTarifa.setBounds(pos.colB, pos.row3, 120, 20);
 			contentPane.add(txtTarifa);
 			
-			lblErrorTarifa = new JLabel();
-			lblErrorTarifa.setFont(new Font("Arial", Font.BOLD, 14));
+			lblErrorTarifa = com.lblValidacion("");
 			lblErrorTarifa.setBounds(pos.colC, pos.row3, 120, 20);
 			contentPane.add(lblErrorTarifa);
 			
-			JLabel lblSubsidio = new JLabel("Subsidio: ");
-			lblSubsidio.setFont(new Font("Arial", Font.BOLD, 14));
+			JLabel lblSubsidio = com.lblCampo("Subsidio *");
 			lblSubsidio.setBounds(pos.colA, pos.row4, 120, 20);
 			contentPane.add(lblSubsidio);
 			
-			txtSubsidio = new JTextField();
+			txtSubsidio = com.input();
 			txtSubsidio.setBounds(pos.colB, pos.row4, 120, 20);
 			contentPane.add(txtSubsidio);
 			
-			lblErrorSubsidio = new JLabel();
-			lblErrorSubsidio.setFont(new Font("Arial", Font.BOLD, 14));
+			lblErrorSubsidio = com.lblValidacion("");
 			lblErrorSubsidio.setBounds(pos.colC, pos.row4, 120, 20);
 			contentPane.add(lblErrorSubsidio);
 			
