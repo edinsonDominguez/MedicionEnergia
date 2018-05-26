@@ -2,7 +2,9 @@ package ui;
 
 	import javax.swing.*;
 
+import helpers.FormatoPosicion;
 import procesos.ProcesoFactura;
+import procesos.ValidarCampos;
 
 import java.awt.Font;
 	import java.awt.event.MouseEvent;
@@ -13,11 +15,23 @@ import java.awt.Font;
 		private JPanel contentPane;
 		private JTextField txtConsumo, txtTarifa, txtSubsidio;
 		private JButton registro;
+		private JLabel lblErrorSubsidio, lblErrorTarifa, lblErrorConsumo;
+		
+		// clases 
 		ProcesoFactura miProceso;
+		ValidarCampos validar;
+		FormatoPosicion pos;
+		
+		// variables validaciones
+		String resultadoConsumo = "", resultadoTarifa = "", resultadoSubsidio = "";
+		
 		
 		public Factura() {
+			System.out.println("Esta en la clase uiFactura");
 			
 			miProceso = new ProcesoFactura();
+			validar = new ValidarCampos();
+			pos = new FormatoPosicion();
 			
 			setSize(1000,1000);
 			setLocationRelativeTo(null);
@@ -26,57 +40,6 @@ import java.awt.Font;
 			
 		private void componentes(){
 			
-			/* Este sistema ayudara a organizar los componentes dentro de la ventana 
-			 * */
-			
-			/*    1 2 3 4 5
-			 *  A * * * * *
-			 *  B * * * * *
-			 *  C * * * * *
-			 *  D * * * * * 
-			 *  */
-			
-			/* Para esta interfaz usuario 
-			 *    1 2 3 4 5
-			 *  A * * *	* *
-			 *  B * * * * *
-			 *  C * * * * *
-			 *  D * * * * *
-			 *  E * * * * *
-			 *  */
-			
-			// columna yPrimera A1, B1, C1, D1
-			int yPrimera = 20;
-			
-			// columna ySegunda A2, B2, C2, D2
-			int ySegunda = 160;
-			
-			// columna yTercera A3, B3, C3, D3
-			int yTercera = 300;
-			
-			// columna yCuarta A4, B4, C4, D4
-			int yCuarta = 440;
-			
-			//  columna yQuinta A5, B5, C5, D5
-			int yQuinta = 580;
-			
-			
-			// filas de la ui
-			
-			// fila xPrimera A1, A2, A3
-			int xPrimera = 20;
-			
-			// fila xSegunda A2, B2, C2
-			int xSegunda = 60;
-			
-			// fila xTercera A3, B3, C3
-			int xTercera = 100;
-			
-			// fila xCuarta A4, B4, C4
-			int xCuarta = 140;
-			
-			// fila xQuinta A5, B5, C5 ....
-			int xQuinta = 180;
 			
 			contentPane = new JPanel();
 			contentPane.setLayout(null);
@@ -84,41 +47,57 @@ import java.awt.Font;
 			setContentPane(contentPane);
 			
 			JLabel lblTitulo = new JLabel("Registro factura: ");
-			lblTitulo.setBounds(yTercera, xPrimera, 400, 30);
+			lblTitulo.setBounds(pos.colC, pos.row1, 400, 30);
 			lblTitulo.setFont(new Font("Arial", Font.BOLD, 18));
 			contentPane.add(lblTitulo);
 			
 			JLabel lblConsumo = new JLabel("Consumo: ");
 			lblConsumo.setFont(new Font("Arial", Font.BOLD, 14));
-			lblConsumo.setBounds(yPrimera, xSegunda, 120, 20);
+			lblConsumo.setBounds(pos.colA, pos.row2, 120, 20);
 			contentPane.add(lblConsumo);
 			
 			txtConsumo = new JTextField();
-			txtConsumo.setBounds(ySegunda, xSegunda, 120, 20);
+			txtConsumo.setBounds(pos.colB, pos.row2, 120, 20);
 			contentPane.add(txtConsumo);
+			
+			
+			lblErrorConsumo = new JLabel();
+			lblErrorConsumo.setFont(new Font("Arial", Font.BOLD, 14));
+			lblErrorConsumo.setBounds(pos.colC, pos.row2, 120, 20);
+			contentPane.add(lblErrorConsumo);
 			
 			
 			JLabel lblTarifa = new JLabel("Tarifa: ");
 			lblTarifa.setFont(new Font("Arial", Font.BOLD, 14));
-			lblTarifa.setBounds(yPrimera, xTercera, 120, 20);
+			lblTarifa.setBounds(pos.colA, pos.row3, 120, 20);
 			contentPane.add(lblTarifa);
 			
 			txtTarifa = new JTextField();
-			txtTarifa.setBounds(ySegunda, xTercera, 120, 20);
+			txtTarifa.setBounds(pos.colB, pos.row3, 120, 20);
 			contentPane.add(txtTarifa);
+			
+			lblErrorTarifa = new JLabel();
+			lblErrorTarifa.setFont(new Font("Arial", Font.BOLD, 14));
+			lblErrorTarifa.setBounds(pos.colC, pos.row3, 120, 20);
+			contentPane.add(lblErrorTarifa);
 			
 			JLabel lblSubsidio = new JLabel("Subsidio: ");
 			lblSubsidio.setFont(new Font("Arial", Font.BOLD, 14));
-			lblSubsidio.setBounds(yPrimera, xCuarta, 120, 20);
+			lblSubsidio.setBounds(pos.colA, pos.row4, 120, 20);
 			contentPane.add(lblSubsidio);
 			
 			txtSubsidio = new JTextField();
-			txtSubsidio.setBounds(ySegunda, xCuarta, 120, 20);
+			txtSubsidio.setBounds(pos.colB, pos.row4, 120, 20);
 			contentPane.add(txtSubsidio);
+			
+			lblErrorSubsidio = new JLabel();
+			lblErrorSubsidio.setFont(new Font("Arial", Font.BOLD, 14));
+			lblErrorSubsidio.setBounds(pos.colC, pos.row4, 120, 20);
+			contentPane.add(lblErrorSubsidio);
 			
 			
 			registro = new JButton("Registrar");
-			registro.setBounds(yTercera, xQuinta, 120, 30);
+			registro.setBounds(pos.colC, pos.row5, 120, 30);
 			registro.setFont(new Font("Arial", Font.BOLD, 14));
 			registro.addMouseListener(this);
 			contentPane.add(registro);
@@ -128,22 +107,80 @@ import java.awt.Font;
 		public void mouseClicked(MouseEvent e) {
 			
 			if(e.getSource() == registro){
-			
 				System.out.println("presiono en registro !!");
-				String validacion = "";
-			
-				validacion = miProceso.validarCampos(txtConsumo.getText(), txtTarifa.getText(), txtSubsidio.getText());	
-						
 				
-				
-				if(validacion.equals("ok")){
-					conectarLogicaNegocio();					
-				}
-				
+				imprimirResultado();	
 			}
 			
 		}
 
+		private void imprimirResultado() {
+			
+			// inicializamos las varibles
+			
+			 resultadoConsumo = validar.validarCampos(txtConsumo.getText().trim());
+			 resultadoTarifa = validar.validarCampos(txtTarifa.getText().trim());
+			 resultadoSubsidio = validar.validarCampos(txtSubsidio.getText().trim());
+			
+			 // se imprimen el resultado de las variables en consola
+			 System.out.println("nuevo valor estadoConsumo " + resultadoConsumo);
+			 System.out.println("nuevo valor estadoTarifa " + resultadoTarifa);
+			 System.out.println("nuevo valor estadoSubsidio " + resultadoSubsidio);
+				
+			if(resultadoConsumo.equals("ok") && resultadoTarifa.equals("ok") && resultadoSubsidio.equals("ok")){
+				
+				conectarLogicaNegocio();
+				
+			}else{
+				
+				// Mostrar mensajes del campo txtConsumo ...
+				if(resultadoConsumo.equals("campoVacio")){
+					lblErrorConsumo.setText("Este campo esta vacio !!");
+				}else{
+					if(resultadoConsumo.equals("letraCampo")){
+					lblErrorConsumo.setText("No pueden haber letras en el campo !!");
+					}else{
+						if(resultadoConsumo.equals("ok")){
+							System.out.println("Consumo correcto!!");
+							lblErrorConsumo.setText("");		
+						}
+					}
+				}
+				
+				// mostrar mensajes del campo txtTarifa ...	
+				if(resultadoTarifa.equals("campoVacio")){
+					lblErrorTarifa.setText("Este campo esta vacio !!");
+				}else{
+					if(resultadoTarifa.equals("letraCampo")){
+						lblErrorTarifa.setText("No pueden haber letras en el campo !!");
+					}else{
+						if(resultadoTarifa.equals("ok")){
+							System.out.println("Consumo correcto!!");
+							lblErrorTarifa.setText("");		
+						}
+					}
+				}
+				
+				// mostrar mensajes del campo txtSubsidio ...
+				if(resultadoSubsidio.equals("campoVacio")){
+					lblErrorSubsidio.setText("Este campo esta vacio !!");
+				}else{
+					if(resultadoSubsidio.equals("letraCampo")){
+						lblErrorSubsidio.setText("No pueden haber letras en el campo !!");
+					}else{
+						if(resultadoSubsidio.equals("ok")){
+							System.out.println("Consumo correcto!!");
+							lblErrorSubsidio.setText("");		
+						}
+					}
+				}
+				
+				
+			}
+
+		}
+
+		
 		private void conectarLogicaNegocio() {
 
 			try {
@@ -153,14 +190,13 @@ import java.awt.Font;
 			double tarifa = Double.parseDouble(txtTarifa.getText());
 			double subsidio = Double.parseDouble(txtSubsidio.getText());
 			
-			
 			// Conexion a la clase de logica de negocio de nuestra aplicacion
-			
 			miProceso.tomarDatos(consumo, tarifa, subsidio);
 			
 			// esta varible mostrara el valor a pagar de la factura 
-			double totalPagar = miProceso.mostrarTotal();
+			int totalPagar = miProceso.mostrarTotal();
 			
+			// Se imprime el valor de toda la factura !!
 			System.out.println("Factura = " + totalPagar);
 			
 			} catch (Exception errores) {
