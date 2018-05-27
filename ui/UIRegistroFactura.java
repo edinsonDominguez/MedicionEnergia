@@ -11,7 +11,7 @@ import java.awt.Font;
 	import java.awt.event.MouseEvent;
 	import java.awt.event.MouseListener;
 
-	public class Factura extends JFrame implements MouseListener {
+	public class UIRegistroFactura extends JFrame implements MouseListener {
 
 		private JPanel contentPane;
 		private JTextField txtConsumo, txtTarifa, txtSubsidio;
@@ -30,8 +30,9 @@ import java.awt.Font;
 		String resultadoConsumo = "", resultadoTarifa = "", resultadoSubsidio = "";
 		
 		
-		public Factura() {
+		public UIRegistroFactura() {
 			System.out.println("Esta en la clase uiFactura");
+			
 			
 			// Inicializamos las variables 
 			miProceso = new ProcesoFactura();
@@ -112,7 +113,7 @@ import java.awt.Font;
 
 		private void imprimirResultado() {
 			
-			// inicializamos las varibles
+			// en las varibles asignamos el method de validacion del registro de factura
 			
 			 resultadoConsumo = validar.validarCampos(txtConsumo.getText().trim());
 			 resultadoTarifa = validar.validarCampos(txtTarifa.getText().trim());

@@ -8,6 +8,7 @@ import java.awt.event.MouseListener;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 public class Componentes implements MouseListener {
@@ -101,6 +102,14 @@ public class Componentes implements MouseListener {
 		return btnSalir;
 	}
 	
+	
+	public JPasswordField password(){
+		
+		JPasswordField pass = new JPasswordField();
+		pass.setForeground(Color.decode("#424242"));
+		pass.setFont(new Font("Arial", Font.CENTER_BASELINE, 14));
+		return pass;
+	}
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {

@@ -37,5 +37,21 @@ public class ValidarCampos {
 		return respuesta;
 		
 	}
+	
+	public String CamposRegistroUsuario(String contenidoCampo){
+		//este method validara los campos de la (ui) UIRegistroUsuario
+		
+		// esta variable contiene los estados de validacion
+		String respuesta = "ok"; 
+		
+		if(contenidoCampo.equals("")){
+			respuesta = "campoVacio";
+		}
+		
+		return respuesta;
+	}
+	
+	
+	
 
 }
