@@ -2,15 +2,28 @@ package helpers;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class Componentes {
+public class Componentes implements MouseListener {
 
 	// method Color.decode("") nos permite utilizar los colores hexadecimales 
+	
+	private JButton btnSalir;
+	FormatoPosicion pos;
+	
+	// method constructor
+	
+	public Componentes(){
+		
+		pos = new FormatoPosicion();
+		
+	}
 	
 	public JPanel panelPrincipal(){
 		// este componente es para el panel principal
@@ -23,7 +36,8 @@ public class Componentes {
 	public JPanel form(){
 		
 		JPanel formulario = new JPanel();
-		
+		formulario.setLayout(null);
+		formulario.setBackground(Color.decode("#ffffff"));
 		return formulario;
 	}
 	
@@ -78,5 +92,47 @@ public class Componentes {
 		
 		
 		return botonRegistro;
+	}
+
+	public JButton botonSalir(String nombre){
+		btnSalir = new JButton(nombre);
+		btnSalir.addMouseListener(this);
+		btnSalir.setBounds(pos.colG, pos.row11, 120, 40);
+		return btnSalir;
+	}
+	
+	
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		
+		if(btnSalir == e.getSource()){
+			System.exit(0);
+		}
+		
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 }

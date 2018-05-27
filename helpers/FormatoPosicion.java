@@ -81,5 +81,37 @@ public class FormatoPosicion {
 	 * */
 		
 	
+	// Columnas del form
+	public int fColA = 0;
+	public int fColB = 60;
+	public int fColC = 120;
+	public int fColD = 180;
+	public int fColE = 240;
+	public int fColF = 300;
+	public int fColG = 360;
+	public int fColH = 420;
+	public int fColI = 480;
+	
+	//  filas del form
+	
+	public int fRow1 = 0;
+	
+	public int fRow2 = 60;
+	public int fRow3 = 90;
+	
+	public int fRow4 = 130;
+	public int fRow5 = 160;
+	
+	public int fRow6 = 200;
+	public int fRow7 = 230;
+	
+	public int fRow8 = 270;
+	public int fRow9 = 300;
+	
+	
+	// Seran las posiciones de los botones de continuar, e iniciarSesion
+	public int fRow10 = 340;
+	public int fRow11 = 360;
+	
 	
 }
