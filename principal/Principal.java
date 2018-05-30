@@ -1,4 +1,6 @@
 package principal;
+import ui.UILogin;
+import ui.UIRegistroFactura;
 import ui.UIRegistroUsuario;
 
 public class Principal {
@@ -6,15 +8,17 @@ public class Principal {
 	public static void main(String[] args) {
 		// Inicio de la aplicacion
 		
-		// llamando a la clase factura
+		UILogin miLogin = new  UILogin();
+		miLogin.setVisible(true);
 		
-		/*Factura miFactura = new Factura();
+		/*UIRegistroFactura miFactura = new UIRegistroFactura();
 		miFactura.setVisible(true);
 		 */
 		
+		/*
 		UIRegistroUsuario registroUsuario = new UIRegistroUsuario();
 		registroUsuario.setVisible(true);
-		
+		*/
 	}
 
 }

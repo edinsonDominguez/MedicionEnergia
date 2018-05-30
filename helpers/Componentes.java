@@ -102,6 +102,13 @@ public class Componentes implements MouseListener {
 		return btnSalir;
 	}
 	
+	public JLabel simbolo(String simbolo){
+		
+		JLabel nuevo = new JLabel(simbolo);
+		nuevo.setForeground(Color.decode("#424242"));
+		nuevo.setFont(new Font("Arial", Font.CENTER_BASELINE, 18));	
+		return nuevo;
+	}
 	
 	public JPasswordField password(){
 		

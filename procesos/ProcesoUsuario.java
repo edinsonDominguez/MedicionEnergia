@@ -24,7 +24,21 @@ public class ProcesoUsuario {
 	
 	public String procesoRegistro(Usuario miUsuario){
 		
-		String respuesta = daoUsuario.registrarUsuario(miUsuario);
+		
+		
+		
+		String respuesta = "";
+		
+		// esta variable valida si hay un usuario en la base de datos
+		Usuario usua = daoUsuario.verificarUsuario(miUsuario);
+		
+		if(usua == null){
+			respuesta = daoUsuario.registrarUsuario(miUsuario);	
+		}else{
+			respuesta = "usuarioExistente";
+		}
+		
+		System.out.println("Respuesta del method procesoRegistro " + respuesta);
 		
 		return respuesta;
 	}

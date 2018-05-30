@@ -18,6 +18,7 @@ import java.awt.Font;
 		private JButton registro;
 		private JLabel lblErrorSubsidio, lblErrorTarifa, lblErrorConsumo;
 		
+		
 		// Clases Logicas
 		ProcesoFactura miProceso;
 		ValidarCampos validar;
@@ -50,54 +51,90 @@ import java.awt.Font;
 			contentPane = com.panelPrincipal();
 			add(contentPane);
 			
-			JLabel lblTitulo = com.tituloPrincipal("Registro Factura.");
-			lblTitulo.setBounds(pos.colC, pos.row1, 400, 30);
-			contentPane.add(lblTitulo);
+			JPanel header = com.header();
+			header.setBounds(pos.colA, pos.row1, 1260, 120);
+			contentPane.add(header);
+		
+			form();
 			
+			JButton continuar = com.botonSalir("Salir");
+			contentPane.add(continuar);
+			
+		}
+
+		
+		private void form() {
+			//este method contiene todos los componentes de el formulario
+			JPanel form = com.form();
+			form.setBounds(pos.colC, pos.row4, 540, 420);
+			contentPane.add(form);
+			
+			JLabel lblTitulo = com.tituloPrincipal("Registro Factura.");
+			lblTitulo.setBounds(pos.fColD, pos.fRow1, 400, 30);
+			form.add(lblTitulo);
+			
+			// este componente contiene los simbolos de la app
+			JLabel simboloConsumo;
+			
+			// campo Consumo
 			JLabel lblConsumo = com.lblCampo("Consumo *");
-			lblConsumo.setBounds(pos.colA, pos.row2, 120, 20);
-			contentPane.add(lblConsumo);
+			lblConsumo.setBounds(pos.fColB, pos.fRow2, 90, 30);
+			form.add(lblConsumo);
+			
 			
 			txtConsumo = com.input();
-			txtConsumo.setBounds(pos.colB, pos.row2, 120, 20);
-			contentPane.add(txtConsumo);
+			txtConsumo.setBounds(pos.fColB, pos.fRow3, 160, 30);
+			form.add(txtConsumo);
+			
+			simboloConsumo = com.simbolo("kWh");
+			simboloConsumo.setBounds(pos.fColE, pos.fRow3, 60, 40);
+			form.add(simboloConsumo);
 			
 			
 			lblErrorConsumo = com.lblValidacion("");
-			lblErrorConsumo.setBounds(pos.colC, pos.row2, 120, 20);
-			contentPane.add(lblErrorConsumo);
+			lblErrorConsumo.setBounds(pos.fColF, pos.fRow3, 160, 20);
+			form.add(lblErrorConsumo);
 			
-			
+			// campo Tarifa
 			JLabel lblTarifa = com.lblCampo("Tarifa *");
-			lblTarifa.setBounds(pos.colA, pos.row3, 120, 20);
-			contentPane.add(lblTarifa);
+			lblTarifa.setBounds(pos.fColB, pos.fRow4, 90, 30);
+			form.add(lblTarifa);
 			
 			txtTarifa = com.input();
-			txtTarifa.setBounds(pos.colB, pos.row3, 120, 20);
-			contentPane.add(txtTarifa);
+			txtTarifa.setBounds(pos.fColB, pos.fRow5, 160, 30);
+			form.add(txtTarifa);
+			
+			simboloConsumo = com.simbolo("$/kWh");
+			simboloConsumo.setBounds(pos.fColE, pos.fRow5, 60, 40);
+			form.add(simboloConsumo);
 			
 			lblErrorTarifa = com.lblValidacion("");
-			lblErrorTarifa.setBounds(pos.colC, pos.row3, 120, 20);
-			contentPane.add(lblErrorTarifa);
+			lblErrorTarifa.setBounds(pos.fColF, pos.fRow5, 160, 20);
+			form.add(lblErrorTarifa);
 			
+			// campo Subsidio
 			JLabel lblSubsidio = com.lblCampo("Subsidio *");
-			lblSubsidio.setBounds(pos.colA, pos.row4, 120, 20);
-			contentPane.add(lblSubsidio);
+			lblSubsidio.setBounds(pos.fColB, pos.fRow6, 90, 30);
+			form.add(lblSubsidio);
 			
 			txtSubsidio = com.input();
-			txtSubsidio.setBounds(pos.colB, pos.row4, 120, 20);
-			contentPane.add(txtSubsidio);
+			txtSubsidio.setBounds(pos.fColB, pos.fRow7, 160, 30);
+			form.add(txtSubsidio);
+			
+			simboloConsumo = com.simbolo("%");
+			simboloConsumo.setBounds(pos.fColE, pos.fRow7, 60, 40);
+			form.add(simboloConsumo);
 			
 			lblErrorSubsidio = com.lblValidacion("");
-			lblErrorSubsidio.setBounds(pos.colC, pos.row4, 120, 20);
-			contentPane.add(lblErrorSubsidio);
+			lblErrorSubsidio.setBounds(pos.fColF, pos.fRow7, 160, 20);
+			form.add(lblErrorSubsidio);
 			
-			
-			registro = new JButton("Registrar");
-			registro.setBounds(pos.colC, pos.row5, 120, 30);
-			registro.setFont(new Font("Arial", Font.BOLD, 14));
+			// boton registro 
+			registro = com.botonRegistro("Continuar");
+			registro.setBounds(pos.fColG, pos.fRow11, 150, 40);
 			registro.addMouseListener(this);
-			contentPane.add(registro);
+			form.add(registro);
+
 		}
 
 		@Override

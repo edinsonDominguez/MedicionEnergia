@@ -112,13 +112,12 @@ public class UIRegistroUsuario extends JFrame implements MouseListener{
 				lblDpto.setBounds(pos.fColB, pos.fRow6, 150, 30);
 				form.add(lblDpto);
 				
-				// Este elemento sufrira cambios a futuro
 				comboDpto = new JComboBox<>();
 				comboDpto.addItem("Seleccionar");
 				// este method contiene los departamentos
 				componenteListaDesplegable();
 				form.add(comboDpto);
-				
+	
 				
 				// Campo contraseña
 				JLabel lblContrasenia = com.lblCampo("Contraseña *");
@@ -167,14 +166,12 @@ public class UIRegistroUsuario extends JFrame implements MouseListener{
 
 	private void imprimirResultados() {
 				
-		
 	// Asignamos en las variables de validacion el metodo que valida campos en registro usuario
-		estadoUsuario = validar.CamposRegistroUsuario(txtUsuario.getText());
-		estadoCorreo = validar.CamposRegistroUsuario(txtCorreo.getText());
-		estadoPass = validar.CamposRegistroUsuario(txtContrasenia.getText());
+		estadoUsuario = validar.CamposRegistroUsuario(txtUsuario.getText().trim());
+		estadoCorreo = validar.CamposRegistroUsuario(txtCorreo.getText().trim());
+		estadoPass = validar.CamposRegistroUsuario(txtContrasenia.getText().trim());
 		
 	//imprimir resultados 
-		
 		System.out.println("campoUsuario: " + estadoUsuario);
 		System.out.println("campoCorreo: " + estadoCorreo);
 		System.out.println("campoPass: " + estadoPass);
@@ -195,35 +192,35 @@ public class UIRegistroUsuario extends JFrame implements MouseListener{
 		
 	}else{
 		
-		// validacionCampo Usuario 
-		if(estadoUsuario.equals("campoVacio")){
-			lblErrorUsuario.setText("campo vacio");
-		}else{
-			if(estadoUsuario.equals("ok")){
-				lblErrorUsuario.setText("");
-			}
+		//nuevo codigo validacionCampo Usuario
+		switch(estadoUsuario){
+			case "campoVacio":
+				lblErrorUsuario.setText("campoVacio");
+				break;
+			case "ok":
+				lblErrorUsuario.setText("");	
+				break;
 		}
-		
+
 		// validacionCampo correo
-		if(estadoCorreo.equals("campoVacio")){
-			lblErrorCorreo.setText("campo vacio");	
-		}else{
-			if(estadoCorreo.equals("ok")){
-				lblErrorCorreo.setText("");
-			}
-				
+		switch (estadoCorreo) {
+			case "campoVacio":
+				lblErrorCorreo.setText("campo vacio");		
+				break;
+			case "ok":
+				lblErrorCorreo.setText("");	
+				break;
 		}
 		
 		// validacionCampo contrasenia
-		if(estadoPass.equals("campoVacio")){
-			lblErrorPass.setText("campo vacio");	
-		}else{
-			if(estadoPass.equals("ok")){
+		switch (estadoPass) {
+			case "campoVacio":
+				lblErrorPass.setText("campo vacio");		
+				break;
+			case "ok":
 				lblErrorPass.setText("");
-			}
-				
+				break;	
 		}
-		
 	}
 		
 	}
@@ -231,26 +228,33 @@ public class UIRegistroUsuario extends JFrame implements MouseListener{
 	private void conectarLogica() {
 		
 		Usuario miUsuario = new Usuario();
-		miUsuario.setNombre(txtUsuario.getText());
-		miUsuario.setCorreo(txtCorreo.getText());
-		miUsuario.setContrasenia(txtContrasenia.getText());
+		miUsuario.setNombre(txtUsuario.getText().trim());
+		miUsuario.setCorreo(txtCorreo.getText().trim());
+		miUsuario.setContrasenia(txtContrasenia.getText().trim());
 		// valor del codigo del departamento
 		miUsuario.setDpto(comboDpto.getSelectedIndex());
 		
 		String respuesta = miProceso.procesoRegistro(miUsuario);
 		
-		if(respuesta.equals("ok")){
-		
-			System.out.println("Registro !!");
-			miFactura.setVisible(true);
-			this.dispose();
+		if(respuesta.equals("usuarioExistente")){
 			
+			System.out.println("usuarioExistente :(");
+			lblErrorUsuario.setText("Usuario existente");
+			
+			//limpiar las etiquetas de error
+			lblErrorCorreo.setText("");
+			lblErrorPass.setText("");
 		}else{
-			System.out.println("no registro");
-		
+			
+			if(respuesta.equals("ok")){			
+				System.out.println("Registro !!");
+				miFactura.setVisible(true);
+				this.dispose();
+				
+			}else{
+				System.out.println("no registro");
+			}	
 		}
-		
-		
 	}
 
 
@@ -277,8 +281,5 @@ public class UIRegistroUsuario extends JFrame implements MouseListener{
 		// TODO Auto-generated method stub
 		
 	}
-	
-	
-	
-	
+
 }

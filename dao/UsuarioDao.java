@@ -18,6 +18,7 @@ public class UsuarioDao {
 	
 	private void iniciarConexion(){
 
+		// Este metodo tendra las varibles de conexion a la base de datos
 		connection = null;
 		conexion = new Conexion();
 		statement = null;
@@ -82,5 +83,72 @@ public class UsuarioDao {
 		return lista;
 	}
 	
+	
+	public Usuario verificarUsuario(Usuario miUsuario){
+		
+		// este method verifica si el usuario ingresado esta en la base de datos
+		iniciarConexion();
+		connection = conexion.getConexion();
+		
+		Usuario usua = null;
+		String consulta = "SELECT nombreUsuario, correoUsuario FROM usuario "
+				+ "WHERE nombreUsuario = ?";
+		
+		try {	
+			
+			statement =	connection.prepareStatement(consulta);
+			statement.setString(1, miUsuario.getNombre());
+			result = statement.executeQuery();	
+			
+			while(result.next()){
+				
+				usua = new Usuario();
+				usua.setNombre(result.getString("nombreUsuario"));
+				usua.setCorreo(result.getString("correoUsuario"));
+				
+			}
+			
+			} catch (SQLException e) {		
+				System.out.println("Error en el method listaDpto");
+				System.out.println(e.getMessage());
+			}
+		
+		conexion.desconectar();
+
+		return usua;		
+	}
+	
+	
+	public Usuario buscarUsuario(String nombreUsuario){
+		
+		iniciarConexion();
+		connection = conexion.getConexion();
+		Usuario miUsuario = null;
+		
+		String consulta = "SELECT nombreUsuario, passwUsuario FROM usuario"
+				+ " WHERE nombreUsuario = ?";
+		
+		try {
+		statement = connection.prepareStatement(consulta);
+		statement.setString(1, nombreUsuario);
+		result = statement.executeQuery();
+		
+		while(result.next()){
+			miUsuario = new Usuario();
+			miUsuario.setNombre(result.getString("nombreUsuario"));
+			miUsuario.setContrasenia(result.getString("passwUsuario"));
+			
+		}
+
+		} catch (SQLException e) {
+			System.out.println("Error en el method buscarUsuario()");
+			System.out.println(e.getMessage());
+		}
+		
+		conexion.desconectar();
+		
+		return miUsuario;
+		
+	}
 	
 }
