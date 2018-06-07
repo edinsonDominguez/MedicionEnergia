@@ -47,5 +47,21 @@ FOREIGN KEY(deptUsuario) REFERENCES depto(codigoDept)
 
 );
 
+-- table factura
+
+CREATE TABLE factura(
+
+codigoFactura MEDIUMINT AUTO_INCREMENT,
+consumoActivo MEDIUMINT,
+subsidioNacion MEDIUMINT,
+alumbradoPublico MEDIUMINT,
+totalPagar MEDIUMINT,
+usuarioFactura VARCHAR(25),
+fechaFactura DATE,
+
+PRIMARY KEY(codigoFactura),
+FOREIGN KEY(usuarioFactura) REFERENCES usuario(nombreUsuario)
+
+);
 
 
