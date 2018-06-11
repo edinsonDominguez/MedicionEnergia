@@ -109,9 +109,28 @@ public class FormatoPosicion {
 	public int fRow9 = 300;
 	
 	
-	// Seran las posiciones de los botones de continuar, e iniciarSesion
 	public int fRow10 = 340;
-	public int fRow11 = 360;
+	public int fRow11 = 370;
+	
+	// Seran las posiciones de los botones de continuar, e iniciarSesion
+	public int fRow12 = 410;
+	
+	
+	
+	// posicion del aside 
+	
+	// Columnas
+	public int aColA = 10;
+	
+	
+	// filas
+	
+	public int aRow1 = 180;
+	public int aRow2 = 220;
+	public int aRow3 = 260;
+	public int aRow4 = 300;
+	public int aRow5 = 340;
+	public int aRow6 = 380;
 	
 	
 }

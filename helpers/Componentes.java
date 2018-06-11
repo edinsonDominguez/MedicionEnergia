@@ -106,7 +106,7 @@ public class Componentes implements MouseListener {
 		
 		JLabel nuevo = new JLabel(simbolo);
 		nuevo.setForeground(Color.decode("#424242"));
-		nuevo.setFont(new Font("Arial", Font.CENTER_BASELINE, 18));	
+		nuevo.setFont(new Font("Arial", Font.CENTER_BASELINE, 16));	
 		return nuevo;
 	}
 	
@@ -118,6 +118,52 @@ public class Componentes implements MouseListener {
 		return pass;
 	}
 	
+	
+	public JPanel aside(){
+		
+		JPanel aside = new JPanel();
+		aside.setBackground(Color.decode("#616161"));
+		aside.setLayout(null);
+		return aside;
+	}
+	
+	
+	public JLabel opcionUsuario(String nombre){
+		JLabel opcion = new JLabel(nombre);
+		opcion.setFont(new Font("Arial", Font.BOLD, 16));
+		opcion.setBackground(Color.decode("#424242"));		
+		opcion.setForeground(Color.decode("#ffffff"));
+		opcion.addMouseListener(this);
+		
+		return opcion;			
+	}
+	
+	public JPanel section(){
+		
+		JPanel section = new JPanel();
+		section.setBackground(Color.decode("#ffffff"));
+		section.setLayout(null);
+		section.setBounds(185, 65, 1050, 530);
+		return section;
+	}
+	
+	public JLabel tituloSection(String nombre){
+		
+		JLabel tituloSection = new JLabel(nombre);
+		tituloSection.setForeground(Color.decode("#424242"));
+		tituloSection.setFont(new Font("Arial", Font.CENTER_BASELINE, 26));
+		tituloSection.setBounds(20,20, 200, 40);
+		return tituloSection;
+	}
+	
+	public JLabel subtituloSection(String nombre){
+		
+		JLabel subTitulo = new JLabel(nombre);
+		subTitulo.setForeground(Color.decode("#424242"));
+		subTitulo.setFont(new Font("Arial", Font.CENTER_BASELINE, 18));
+		return subTitulo;
+	}
+	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		
@@ -126,16 +172,16 @@ public class Componentes implements MouseListener {
 		}
 		
 		
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void mouseExited(MouseEvent arg0) {
+	public void mouseEntered(MouseEvent e) {
+			
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
 	}

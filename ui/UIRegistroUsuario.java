@@ -248,6 +248,7 @@ public class UIRegistroUsuario extends JFrame implements MouseListener{
 			
 			if(respuesta.equals("ok")){			
 				System.out.println("Registro !!");
+				miFactura.recibirNombre(txtUsuario.getText());
 				miFactura.setVisible(true);
 				this.dispose();
 				

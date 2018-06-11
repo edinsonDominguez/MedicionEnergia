@@ -22,18 +22,19 @@ public class ProcesoUsuario {
 		return lista;
 	}
 	
-	public String procesoRegistro(Usuario miUsuario){
-		
-		
-		
+	public String procesoRegistro(Usuario miUsuario){	
 		
 		String respuesta = "";
 		
 		// esta variable valida si hay un usuario en la base de datos
 		Usuario usua = daoUsuario.verificarUsuario(miUsuario);
 		
+		
 		if(usua == null){
 			respuesta = daoUsuario.registrarUsuario(miUsuario);	
+			
+			
+			
 		}else{
 			respuesta = "usuarioExistente";
 		}
@@ -42,6 +43,8 @@ public class ProcesoUsuario {
 		
 		return respuesta;
 	}
+	
+	
 	
 	
 }

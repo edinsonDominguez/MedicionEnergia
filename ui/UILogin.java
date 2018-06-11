@@ -19,10 +19,11 @@ public class UILogin extends JFrame implements MouseListener {
 	Componentes com;
 	FormatoPosicion pos;
 	UIRegistroUsuario miRegistroUsuario;
-	ValidarCampos validar;
 	
 	//variables de logica
 	ProcesoLogin miLogin;
+	ValidarCampos validar;
+	UIContenido miContenido;
 	
 	// elementos de la (ui)
 	JTextField txtUsuario, txtPass;
@@ -41,6 +42,7 @@ public class UILogin extends JFrame implements MouseListener {
 
 		
 		// inicializamos las variables 
+		miContenido = new UIContenido();
 		com = new Componentes();
 		pos = new FormatoPosicion();
 		miRegistroUsuario = new UIRegistroUsuario();
@@ -195,8 +197,15 @@ public class UILogin extends JFrame implements MouseListener {
 			if(password.equals(passwordBD)){
 				System.out.println("El usuario esta en el sistema");
 				lblErrorPass.setText("");
+				
+				// ingreso a la ventana Contenido
+				System.out.println("Ventana de Contenido");
+				miContenido.recibirNombre(miUsuario.getNombre());
+				miContenido.setVisible(true);
+				this.dispose();
+				
 			}else{
-				System.out.println("El usuario no esta en el sistema");
+				System.out.println("no es la contraseña correcta");
 				lblErrorPass.setText("contraseña incorrecta");
 			}
 			
