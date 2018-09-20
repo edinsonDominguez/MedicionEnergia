@@ -200,9 +200,14 @@ public class UILogin extends JFrame implements MouseListener {
 				
 				// ingreso a la ventana Contenido
 				System.out.println("Ventana de Contenido");
-				miContenido.recibirNombre(miUsuario.getNombre());
-				miContenido.setVisible(true);
-				this.dispose();
+				if(miUsuario.getNombre() == null){
+					System.out.println("UIContenido no Generado");
+				}else{
+					miContenido.recibirNombre(miUsuario.getNombre());
+					miContenido.setVisible(true);
+					this.dispose();
+						
+				}
 				
 			}else{
 				System.out.println("no es la contraseña correcta");

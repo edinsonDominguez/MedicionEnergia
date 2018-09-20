@@ -64,4 +64,16 @@ FOREIGN KEY(usuarioFactura) REFERENCES usuario(nombreUsuario)
 
 );
 
+-- table CompoCasa
+
+CREATE TABLE CompoCasa(
+
+nombreCompo VARCHAR(30),
+vatiosCompo TINYINT,
+usuarioCompo VARCHAR(25),
+
+PRIMARY KEY(nombreCompo),
+FOREIGN KEY(usuarioCompo) REFERENCES usuario(nombreUsuario)
+
+);
 

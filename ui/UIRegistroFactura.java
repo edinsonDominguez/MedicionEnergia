@@ -152,7 +152,7 @@ import java.awt.event.MouseListener;
 			form.add(simboloConsumo);
 			
 			//campo fechaPago
-			JLabel lblFecha = com.lblCampo("Fecha de Pago *");
+			JLabel lblFecha = com.lblCampo("Fecha de vencimiento *");
 			lblFecha.setBounds(pos.fColB, pos.fRow10, 180, 30);
 			form.add(lblFecha);
 			

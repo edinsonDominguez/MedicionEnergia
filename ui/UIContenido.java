@@ -4,23 +4,53 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 import javax.swing.*;
 
 import helpers.Componentes;
 import helpers.FormatoPosicion;
+import procesos.ProcesoCompo;
+import procesos.ProcesoContenido;
+import procesos.ProcesoFactura;
+import procesos.ValidarCampos;
+import vo.Domestico;
 
 public class UIContenido extends JFrame implements MouseListener{
 
+	// clases logicas
+	ProcesoContenido miProceso;
+	ValidarCampos validar;
+	ProcesoFactura procesoFactura;
+	ProcesoCompo procesoCompo;
+	
 	//componentes graficos
 	private JPanel contentPane;
+
+	//contenido inicio
+	private JLabel lblFacturaActual, lblFacturaAnterior, lblFacturaProxima;
+	private JButton btnMasFacturas; 
 	
+	// contenido registro Factura
 	private JTextField txtConsumo, txtTarifa, txtSubsidio, txtAlumbrado, txtFecha;
 	private JButton registro;
 	private JLabel lblErrorSubsidio, lblErrorTarifa, lblErrorConsumo, 
 	lblErrorAlumbrado, lblErrorFecha;
 	
-
+	// contenido utilidades
+	private JButton registroCompo, cancelarRegistro, ingresarCompo;
+	private JPanel panelIngresoCompo, electro;
+	private JTextField txtNombreCompo, txtVatioCompo;
+	private JLabel lblVatio, lblVatiosHora, lblPrecioHora, lblPrecioDia, lblPrecioSemana,
+	lblPrecioMes;
+	private JComboBox<String> listaCompo;
+	ArrayList<String> componentes;
+	
+	// variables validaciones
+	String resultadoConsumo = "", resultadoTarifa = "", 
+			resultadoSubsidio = "", resultadoAlumbrado = "", resultadoFecha = "";
+			
+	
 	// usuario
 	private String nombreUsuario;
 	
@@ -34,12 +64,19 @@ public class UIContenido extends JFrame implements MouseListener{
 	opcNoticias, opcInformacion;
 	
 	// contenidos del usuario
-	private JPanel panelInicio, panelFactura, panelUtilidad, panelNoticia, panelInformacion;
+	private JPanel panelInicio, panelFactura, panelUtilidad, 
+	panelNoticia, panelInformacion;
 	
 	
 	
 	public UIContenido(){
-	
+
+		// inicializamos las variables
+		miProceso = new ProcesoContenido();
+		procesoFactura = new ProcesoFactura();
+		procesoCompo = new ProcesoCompo();
+		
+		validar = new ValidarCampos(); 
 		com = new Componentes();
 		pos = new FormatoPosicion();
 	
@@ -125,10 +162,134 @@ public class UIContenido extends JFrame implements MouseListener{
 		JLabel tituloUtilidad = com.tituloSection("Utilidades");
 		panelUtilidad.add(tituloUtilidad);
 		
+		JLabel descripcion = com.subtituloSection("Conoce cuanto consumen tus electrodomesticos.");
+		descripcion.setBounds(20, 60, 600, 30);
+		panelUtilidad.add(descripcion);
+		
+		
+		panelIngresoCompo();
+		
+		panelElectro();
+		
+		
 		
 		// la visibilidad del contenido
 		panelUtilidad.setVisible(false);
 				
+	}
+
+	private void panelIngresoCompo() {
+
+		// Completar Visualizacion
+		 panelIngresoCompo = new JPanel();
+		 panelIngresoCompo.setLayout(null);
+		 panelIngresoCompo.setBackground(Color.decode("#e0e0e0"));
+		 panelIngresoCompo.setBounds(5, 90, 1040, 190);
+		 panelUtilidad.add(panelIngresoCompo);
+		 
+		 int espacioLabel = 10;
+		 int espacioTxt = 250;
+		 
+		 JLabel nombreCompo = com.lblCampo("Nombre electrodomestico");
+		 nombreCompo.setBounds(espacioLabel, 20, 200, 30);
+		 panelIngresoCompo.add(nombreCompo);
+		 
+		 txtNombreCompo = com.input();
+		 txtNombreCompo.setBounds(espacioTxt, 20, 150, 30);
+		 panelIngresoCompo.add(txtNombreCompo);
+		 
+		 JLabel vatioCompo = com.lblCampo("Watts electrodomestico");
+		 vatioCompo.setBounds(espacioLabel, 60, 200, 30);
+		 panelIngresoCompo.add(vatioCompo);
+		 
+		 txtVatioCompo = com.input();
+		 txtVatioCompo.setBounds(espacioTxt, 60, 150, 30);
+		 panelIngresoCompo.add(txtVatioCompo);
+		 
+		 
+		 ingresarCompo = com.botonRegistro("Ingresar ");
+		 ingresarCompo.setBounds(10, 140, 150, 30);
+		 ingresarCompo.addMouseListener(this);
+		 panelIngresoCompo.add(ingresarCompo); 
+		
+		cancelarRegistro = com.botonRegistro("Cancelar ");
+		cancelarRegistro.setBounds(170, 140, 150, 30);
+		cancelarRegistro.addMouseListener(this);
+		panelIngresoCompo.add(cancelarRegistro);
+		
+		
+		panelIngresoCompo.setVisible(false);
+
+	}
+
+	private void panelElectro() {
+		
+		electro = new JPanel();
+		electro.setLayout(null);
+		electro.setBackground(Color.decode("#e0e0e0"));
+		electro.setBounds(5, 90, 1040, 190);
+		panelUtilidad.add(electro);
+		
+		// posicion de los titulos de la lista
+		int posTitulo = 10; 
+		
+		JLabel nombreElectro = com.headerLista("Electrodomestico");
+		nombreElectro.setBounds(20, posTitulo, 150, 30);
+		electro.add(nombreElectro);
+		
+		JLabel wElectro = com.headerLista("W");
+		wElectro.setBounds(200, posTitulo, 50, 30);
+		electro.add(wElectro);
+		
+		JLabel kWhElectro = com.headerLista("kWh");
+		kWhElectro.setBounds(300, posTitulo, 50, 30);
+		electro.add(kWhElectro);
+		
+		JLabel precioHoraElectro = com.headerLista("Precio-hora");
+		precioHoraElectro.setBounds(450, posTitulo, 100, 30);
+		electro.add(precioHoraElectro);
+		
+		JLabel precioDiaElectro = com.headerLista("Precio-dia");
+		precioDiaElectro.setBounds(600, posTitulo, 100, 30);
+		electro.add(precioDiaElectro);
+		
+		JLabel precioSemanaElectro = com.headerLista("Precio-semana");
+		precioSemanaElectro.setBounds(750, posTitulo, 120, 30);
+		electro.add(precioSemanaElectro);
+		
+		JLabel precioMesElectro = com.headerLista("Precio-mes");
+		precioMesElectro.setBounds(900, posTitulo, 120, 30);
+		electro.add(precioMesElectro);
+		
+		listaCompo = new JComboBox<>();
+		
+		electro.add(listaCompo);
+		
+		registroCompo = com.botonRegistro("Registrar");
+		registroCompo.setBounds(10, 140, 150, 30);
+		registroCompo.addMouseListener(this);
+		electro.add(registroCompo);
+		
+		
+	}
+
+	private void listaCompo() {
+		
+		listaCompo.setBounds(50, 60, 150, 30);
+		
+		ArrayList<String> componentes = null;
+		listaCompo.removeAllItems();
+		
+		System.out.println("getNombreUsuario " + getNombreUsuario());
+			
+			componentes = procesoCompo.listaCompo(getNombreUsuario());
+			
+			System.out.println("Cantidad de componentes: " + componentes.size());
+			
+			for (int i = 0; i < componentes.size(); i++) {
+				listaCompo.addItem(componentes.get(i));
+			}
+		
 	}
 
 	private void panelFactura() {
@@ -224,7 +385,7 @@ public class UIContenido extends JFrame implements MouseListener{
 		form.add(simboloConsumo);
 		
 		//campo fechaPago
-		JLabel lblFecha = com.lblCampo("Fecha de Pago *");
+		JLabel lblFecha = com.lblCampo("Fecha de vencimiento *");
 		lblFecha.setBounds(pos.fColB, pos.fRow10, 180, 30);
 		form.add(lblFecha);
 		
@@ -268,17 +429,31 @@ public class UIContenido extends JFrame implements MouseListener{
 		facAnterior.setBounds(posicion, 70, 200, 30);
 		panelInicio.add(facAnterior);
 		
+		int posRes = 80;
+		
+		lblFacturaAnterior = com.lblResultado();
+		lblFacturaAnterior.setBounds(posRes, 100, 120, 30);
+		panelInicio.add(lblFacturaAnterior);
+		
 		JLabel facActual = com.subtituloSection("Factura actual:");
 		facActual.setBounds(posicion, 140, 200, 30);
 		panelInicio.add(facActual);
+		
+		lblFacturaActual = com.lblResultado();
+		lblFacturaActual.setBounds(posRes, 170, 120, 30);
+		panelInicio.add(lblFacturaActual);
 		
 		JLabel facProxima = com.subtituloSection("Factura proxima:");
 		facProxima.setBounds(posicion, 210, 200, 30);
 		panelInicio.add(facProxima);
 		
-		JButton masFacturas = new JButton("Mas Facturas");
-		masFacturas.setBounds(820, 280, 200, 30);
-		panelInicio.add(masFacturas);
+		lblFacturaProxima = com.lblResultado();
+		lblFacturaProxima.setBounds(posRes, 240, 120, 30);
+		panelInicio.add(lblFacturaProxima);
+		
+		btnMasFacturas = new JButton("Mas Facturas");
+		btnMasFacturas.setBounds(820, 280, 200, 30);
+		panelInicio.add(btnMasFacturas);
 		
 		// determina la visibilidad del panel de inicio
 		panelInicio.setVisible(true);
@@ -391,7 +566,179 @@ public class UIContenido extends JFrame implements MouseListener{
 			
 		}
 		
+		// manejo de formularios btn 
 		
+		if(registro == e.getSource()){
+			System.out.println("Presiono en btnRegistro ");
+			imprimirResultados();
+			
+		}
+		
+		// manejo de visibilidad de campos
+		if(registroCompo == e.getSource()){
+			
+			System.out.println("Vista de registro de componentes");
+			panelIngresoCompo.setVisible(true);
+			electro.setVisible(false);
+		}
+		
+		if(cancelarRegistro == e.getSource()){
+			panelIngresoCompo.setVisible(false);
+			electro.setVisible(true);
+		}
+		
+		if(ingresarCompo == e.getSource()){
+			registrarCompo();
+		}
+		
+	}
+
+	private void imprimirResultados() {
+		
+		// en las varibles asignamos el method de validacion del registro de factura
+		 resultadoConsumo = validar.validarCampos(txtConsumo.getText().trim());
+		 resultadoTarifa = validar.validarCampos(txtTarifa.getText().trim());
+		 resultadoSubsidio = validar.validarCampos(txtSubsidio.getText().trim());
+		 resultadoAlumbrado = validar.validarCampos(txtAlumbrado.getText().trim());
+		 resultadoFecha = validar.validarCampos(txtFecha.getText().trim());
+		 
+		 if(resultadoConsumo.equals("ok") && resultadoTarifa.equals("ok") && 
+					resultadoSubsidio.equals("ok") 
+					&& (resultadoAlumbrado.equals("ok") || resultadoAlumbrado.equals("campoVacio"))
+					&& (resultadoFecha.equals("ok") || resultadoFecha.equals("letraCampo"))){
+					
+					conectarLogicaNegocio();
+				
+					lblErrorConsumo.setText("");
+					lblErrorSubsidio.setText("");
+					lblErrorTarifa.setText("");
+					lblErrorAlumbrado.setText("");
+					lblErrorFecha.setText("");
+					
+				}else{
+					
+					// Mostrar mensajes del campo txtConsumo ...
+				switch(resultadoConsumo){
+				case "campoVacio":
+					System.out.println("consumo - Vacio");
+					lblErrorConsumo.setText("Este campo esta vacio !!");
+					break;
+				case "letraCampo":
+					System.out.println("consumo - Hay una letra");
+					lblErrorConsumo.setText("No pueden haber letras en el campo !!");
+					break;
+				case "ok":
+					System.out.println("consumo - no hay error");
+					lblErrorConsumo.setText("");		
+					break;
+				}
+			
+					// mostrar mensajes del campo txtTarifa ...	
+					if(resultadoTarifa.equals("campoVacio")){
+						lblErrorTarifa.setText("Este campo esta vacio !!");
+					}else{
+						if(resultadoTarifa.equals("letraCampo")){
+							lblErrorTarifa.setText("No pueden haber letras en el campo !!");
+						}else{
+							if(resultadoTarifa.equals("ok")){
+								System.out.println("Consumo correcto!!");
+								lblErrorTarifa.setText("");		
+							}
+						}
+					}
+					
+					// mostrar mensajes del campo txtSubsidio ...
+					if(resultadoSubsidio.equals("campoVacio")){
+						lblErrorSubsidio.setText("Este campo esta vacio !!");
+					}else{
+						if(resultadoSubsidio.equals("letraCampo")){
+							lblErrorSubsidio.setText("No pueden haber letras en el campo !!");
+						}else{
+							if(resultadoSubsidio.equals("ok")){
+								System.out.println("Consumo correcto!!");
+								lblErrorSubsidio.setText("");		
+							}
+						}
+					}
+					
+					// mostrar mensaje del campo txtAlumbrado
+					if(resultadoAlumbrado.equals("campoVacio")){
+						System.out.println("no hay problema !!");
+						lblErrorAlumbrado.setText("");		
+					}else{
+						if(resultadoAlumbrado.equals("letraCampo")){
+							lblErrorAlumbrado.setText("No pueden haber letras en el campo !!");
+						}else{
+							if(resultadoAlumbrado.equals("ok")){
+								System.out.println("Consumo correcto!!");
+								lblErrorAlumbrado.setText("");		
+							}
+						}
+					}
+					
+					
+					// mostrar mensajes del campo txtFecha ...
+					if(resultadoFecha.equals("campoVacio")){
+						lblErrorFecha.setText("Este campo esta vacio !!");
+					}else{
+						if(resultadoFecha.equals("letraCampo")){
+							lblErrorFecha.setText("");
+						}else{
+							if(resultadoFecha.equals("ok")){
+								System.out.println("Consumo correcto!!");
+								lblErrorFecha.setText("");		
+							}
+						}
+					}
+					
+				}
+
+		
+	}
+	
+
+	private void conectarLogicaNegocio() {
+		
+		try {
+			
+			// Se parsean los datos ingresados
+			int consumo = Integer.parseInt(txtConsumo.getText());
+			double tarifa = Double.parseDouble(txtTarifa.getText());
+			double subsidio = Double.parseDouble(txtSubsidio.getText());
+			int alumbrado = Integer.parseInt(txtAlumbrado.getText());
+			
+			// imprimir nombre usuario 
+			System.out.println("####################################");
+			System.out.println("nombre usuario: " + getNombreUsuario());
+			
+			
+			
+			// Conexion a la clase de logica de negocio de nuestra aplicacion
+			procesoFactura.tomarDatos(consumo, tarifa, subsidio, alumbrado, getNombreUsuario(), txtFecha.getText());
+			
+			// esta varible mostrara el valor a pagar de la factura 
+			int totalPagar = procesoFactura.mostrarTotal();
+			
+			// Se imprime el valor de toda la factura !!
+			System.out.println("Factura = " + totalPagar);
+			
+			resultadosFacturas();
+			limpiarCampos();
+			
+		}catch (Exception errores) {
+			System.out.println("Error en el sistema");
+		}
+		
+	}
+
+	private void limpiarCampos() {
+		
+		txtConsumo.setText("");
+		txtTarifa.setText("");
+		txtSubsidio.setText("");
+		txtAlumbrado.setText("");
+		txtFecha.setText("");
+		 
 	}
 
 	@Override
@@ -448,6 +795,23 @@ public class UIContenido extends JFrame implements MouseListener{
 		
 	}
 
+	public void registrarCompo(){
+	
+		Domestico miCompo = new Domestico();
+		miCompo.setNombreCompo(txtNombreCompo.getText());
+		miCompo.setVatios(Integer.parseInt(txtVatioCompo.getText()));
+		miCompo.setUsuarioCompo(getNombreUsuario());
+		
+		String estado = procesoCompo.ingresarDomestico(miCompo);
+		
+		if(estado.equals("ok")){
+			System.out.println("Registro compo con exito !!");
+			listaCompo();
+			
+		}else{
+			System.out.println("NO pudo registrarse el Compo !!");
+		}
+	}
 	
 	
 	// recibimos el usuario puesto en el login
@@ -460,13 +824,28 @@ public class UIContenido extends JFrame implements MouseListener{
 				setNombreUsuario(nombreUsuario);
 				
 				resultadosFacturas();
+				listaCompo();
+				
 			}
 
 			private void resultadosFacturas() {
 				
+				// asignamos valor a la factura Actual
+				String facturaActual = miProceso.facturaActual(getNombreUsuario()); 
+				lblFacturaActual.setText(facturaActual);
+				
+				// asignamos valor a la factura Anterior
+				String facturaAnterior = miProceso.facturaAnterior(getNombreUsuario());
+				lblFacturaAnterior.setText(facturaAnterior);
+				
+				// asignamos valor a la factura Proxima
+				
+				String facturaProxima = miProceso.fechaProxima(getNombreUsuario());
+				lblFacturaProxima.setText(facturaProxima);
 				
 			}
-
+			
+			// set and get
 			public String getNombreUsuario() {
 				return nombreUsuario;
 			}
@@ -476,7 +855,7 @@ public class UIContenido extends JFrame implements MouseListener{
 			}
 
 			
-	// set and get
+	
 			
 			
 			

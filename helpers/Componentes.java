@@ -164,6 +164,33 @@ public class Componentes implements MouseListener {
 		return subTitulo;
 	}
 	
+	
+	public JLabel lblResultado(){
+		
+		JLabel lblResultado = new JLabel();
+		lblResultado.setFont(new Font("Arial", Font.BOLD, 24));
+		return lblResultado;
+	}
+	
+	public JLabel lblMensajesInformacion(){
+		
+		JLabel lblMensaje = new JLabel();
+		lblMensaje.setFont(new Font("Arial", Font.CENTER_BASELINE, 16));
+		lblMensaje.setBackground(Color.decode("#ffffff"));
+		// se debe cambiar el color a azul
+		return lblMensaje;
+	}
+	
+	public JLabel headerLista(String nombre){
+		
+		// este componente es utilizado en los titulos de las lista 
+		JLabel lblHeader = new JLabel(nombre);
+		lblHeader.setFont(new Font("Arial", Font.CENTER_BASELINE, 14));
+		lblHeader.setBackground(Color.decode("#ffffff"));
+		return lblHeader;
+	
+	}
+	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		

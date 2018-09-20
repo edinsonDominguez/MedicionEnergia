@@ -27,7 +27,7 @@ public class ValidarCampos {
 		if(!(contenidoCampo.equals(""))){
 			try {
 				comprobar = Double.parseDouble(contenidoCampo);
-				System.out.println("Varible comprobar == " + comprobar);
+				System.out.println("Variable comprobar == " + comprobar);
 				
 			} catch (Exception e) {
 				respuesta = "letraCampo";
