@@ -8,6 +8,7 @@ import helpers.FormatoPosicion;
 import procesos.ProcesoFactura;
 import procesos.ValidarCampos;
 
+import java.awt.Font;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -36,18 +37,17 @@ import java.awt.event.MouseListener;
 		
 		
 		public UIRegistroFactura() {
-			System.out.println("Esta en la clase uiFactura");
-			
+			System.out.println("Cargando la ventana UIRegistroFactura");
 			
 			// Inicializamos las variables 
-			miContenido = new UIContenido();
-			miProceso = new ProcesoFactura();
-			validar = new ValidarCampos();
+			
 			pos = new FormatoPosicion();
 			com = new Componentes();
 			
 			setSize(1260,720);
+			setTitle("Registro factura.");
 			setLocationRelativeTo(null);
+		
 			componentes();
 		}
 			
@@ -66,9 +66,9 @@ import java.awt.event.MouseListener;
 			contentPane.add(continuar);
 			
 		}
-
 		
 		private void form() {
+		
 			//este method contiene todos los componentes de el formulario
 			JPanel form = com.form();
 			form.setBounds(pos.colC, pos.row4, 540, 480);
@@ -80,98 +80,121 @@ import java.awt.event.MouseListener;
 			
 			// este componente contiene los simbolos de la app
 			JLabel simboloConsumo;
+			int logoPos = 370;
+			int priPos = 30;
+			int segPos = 200;
+			int terPos = 260;
 			
 			// campo Consumo
 			JLabel lblConsumo = com.lblCampo("Consumo *");
-			lblConsumo.setBounds(pos.fColB, pos.fRow2, 90, 30);
+			lblConsumo.setBounds(priPos, pos.fRow2, 90, 30);
 			form.add(lblConsumo);
 			
-			
 			txtConsumo = com.input();
-			txtConsumo.setBounds(pos.fColB, pos.fRow3, 160, 30);
+			txtConsumo.setBounds(priPos, pos.fRow3, 160, 30);
 			form.add(txtConsumo);
 			
 			simboloConsumo = com.simbolo("kWh");
-			simboloConsumo.setBounds(pos.fColE, pos.fRow3, 60, 40);
+			simboloConsumo.setBounds(segPos, pos.fRow3, 60, 40);
 			form.add(simboloConsumo);
 			
+			JLabel logo = com.logo("/ima/consumo.png");
+			logo.setBounds(logoPos, 70, 160, 40);
+			form.add(logo);
 			
 			lblErrorConsumo = com.lblValidacion("");
-			lblErrorConsumo.setBounds(pos.fColF, pos.fRow3, 160, 20);
+			lblErrorConsumo.setBounds(terPos, pos.fRow3, 160, 20);
 			form.add(lblErrorConsumo);
 			
 			// campo Tarifa
 			JLabel lblTarifa = com.lblCampo("Tarifa *");
-			lblTarifa.setBounds(pos.fColB, pos.fRow4, 90, 30);
+			lblTarifa.setBounds(priPos, pos.fRow4, 90, 30);
 			form.add(lblTarifa);
 			
 			txtTarifa = com.input();
-			txtTarifa.setBounds(pos.fColB, pos.fRow5, 160, 30);
+			txtTarifa.setBounds(priPos, pos.fRow5, 160, 30);
 			form.add(txtTarifa);
 			
 			simboloConsumo = com.simbolo("$/kWh");
-			simboloConsumo.setBounds(pos.fColE, pos.fRow5, 60, 40);
+			simboloConsumo.setBounds(segPos, pos.fRow5, 60, 40);
 			form.add(simboloConsumo);
 			
+			logo = com.logo("/ima/tarifa.png");
+			logo.setBounds(logoPos, 150, 160, 40);
+			form.add(logo);
+			
 			lblErrorTarifa = com.lblValidacion("");
-			lblErrorTarifa.setBounds(pos.fColF, pos.fRow5, 160, 20);
+			lblErrorTarifa.setBounds(terPos, pos.fRow5, 160, 20);
 			form.add(lblErrorTarifa);
 			
 			// campo Subsidio
 			JLabel lblSubsidio = com.lblCampo("Subsidio *");
-			lblSubsidio.setBounds(pos.fColB, pos.fRow6, 90, 30);
+			lblSubsidio.setBounds(priPos, pos.fRow6, 90, 30);
 			form.add(lblSubsidio);
 			
 			txtSubsidio = com.input();
-			txtSubsidio.setBounds(pos.fColB, pos.fRow7, 160, 30);
+			txtSubsidio.setBounds(priPos, pos.fRow7, 160, 30);
 			form.add(txtSubsidio);
 			
 			simboloConsumo = com.simbolo("%");
-			simboloConsumo.setBounds(pos.fColE, pos.fRow7, 60, 40);
+			simboloConsumo.setBounds(segPos, pos.fRow7, 60, 40);
 			form.add(simboloConsumo);
 			
+			logo = com.logo("/ima/subsidio.png");
+			logo.setBounds(logoPos, 230, 160, 40);
+			form.add(logo);
+			
 			lblErrorSubsidio = com.lblValidacion("");
-			lblErrorSubsidio.setBounds(pos.fColF, pos.fRow7, 160, 20);
+			lblErrorSubsidio.setBounds(terPos, pos.fRow7, 160, 20);
 			form.add(lblErrorSubsidio);
 			
 			// campo alumbradoPublico
 			JLabel lblAlumbrado = com.lblCampo("Alumbrado publico");
-			lblAlumbrado.setBounds(pos.fColB, pos.fRow8, 180, 30);
+			lblAlumbrado.setBounds(priPos, pos.fRow8, 180, 30);
 			form.add(lblAlumbrado);
 			
 			txtAlumbrado = com.input();
-			txtAlumbrado.setBounds(pos.fColB, pos.fRow9, 160, 30);
+			txtAlumbrado.setBounds(priPos, pos.fRow9, 160, 30);
 			form.add(txtAlumbrado);
 			
 			lblErrorAlumbrado = com.lblValidacion("");
-			lblErrorAlumbrado.setBounds(pos.fColF, pos.fRow9, 160, 20);
+			lblErrorAlumbrado.setBounds(terPos, pos.fRow9, 160, 20);
 			form.add(lblErrorAlumbrado);
 			
 			simboloConsumo = com.simbolo("$");
-			simboloConsumo.setBounds(pos.fColE, pos.fRow9, 60, 40);
+			simboloConsumo.setBounds(segPos, pos.fRow9, 60, 40);
 			form.add(simboloConsumo);
+			
+			logo = com.logo("/ima/alumbrado.png");
+			logo.setBounds(logoPos, 300, 160, 40);
+			form.add(logo);
 			
 			//campo fechaPago
 			JLabel lblFecha = com.lblCampo("Fecha de vencimiento *");
-			lblFecha.setBounds(pos.fColB, pos.fRow10, 180, 30);
+			lblFecha.setBounds(priPos, pos.fRow10, 180, 30);
 			form.add(lblFecha);
 			
 			txtFecha = com.input();
-			txtFecha.setBounds(pos.fColB, pos.fRow11, 160, 30);
+			txtFecha.setBounds(priPos, pos.fRow11, 160, 30);
 			form.add(txtFecha);
 			
 			simboloConsumo = com.simbolo("AA-MM-DD");
-			simboloConsumo.setBounds(pos.fColE, pos.fRow11, 120, 40);
+			simboloConsumo.setBounds(segPos, pos.fRow11, 80, 40);
+			simboloConsumo.setFont(new Font("Arial", Font.CENTER_BASELINE, 14));	
 			form.add(simboloConsumo);
 			
+			logo = com.logo("/ima/fecha.png");
+			logo.setBounds(logoPos, 360, 160, 40);
+			form.add(logo);
+			
 			lblErrorFecha = com.lblValidacion("");
-			lblErrorFecha.setBounds(pos.fColG, pos.fRow11, 160, 20);
+			lblErrorFecha.setBounds(terPos, pos.fRow11, 160, 20);
 			form.add(lblErrorFecha);
 			
 			
 			// boton registro 
 			registro = com.botonRegistro("Continuar");
-			registro.setBounds(pos.fColG, pos.fRow12, 150, 40);
+			registro.setBounds(pos.fColG, 430, 150, 40);
 			registro.addMouseListener(this);
 			form.add(registro);
 
@@ -181,14 +204,15 @@ import java.awt.event.MouseListener;
 		public void mouseClicked(MouseEvent e) {
 			
 			if(e.getSource() == registro){
-				System.out.println("presiono en registro !!");
-				
+			
 				imprimirResultado();	
 			}
 			
 		}
 
 		private void imprimirResultado() {
+			
+			validar = new ValidarCampos();
 			
 			// en las varibles asignamos el method de validacion del registro de factura
 			 resultadoConsumo = validar.validarCampos(txtConsumo.getText().trim());
@@ -197,12 +221,6 @@ import java.awt.event.MouseListener;
 			 resultadoAlumbrado = validar.validarCampos(txtAlumbrado.getText().trim());
 			 resultadoFecha = validar.validarCampos(txtFecha.getText().trim());
 			 
-			 // se imprimen el resultado de las variables en consola
-			 System.out.println("nuevo valor estadoConsumo " + resultadoConsumo);
-			 System.out.println("nuevo valor estadoTarifa " + resultadoTarifa);
-			 System.out.println("nuevo valor estadoSubsidio " + resultadoSubsidio);
-			 System.out.println("nuevo valor estadoAlumbrado " + resultadoAlumbrado);
-			System.out.println("nuevo valor estadoFecha " + resultadoFecha); 
 			 
 			if(resultadoConsumo.equals("ok") && resultadoTarifa.equals("ok") && 
 				resultadoSubsidio.equals("ok") 
@@ -221,10 +239,10 @@ import java.awt.event.MouseListener;
 				
 				// Mostrar mensajes del campo txtConsumo ...
 				if(resultadoConsumo.equals("campoVacio")){
-					lblErrorConsumo.setText("Este campo esta vacio !!");
+					lblErrorConsumo.setText("Campo vacio !!");
 				}else{
 					if(resultadoConsumo.equals("letraCampo")){
-					lblErrorConsumo.setText("No pueden haber letras en el campo !!");
+					lblErrorConsumo.setText("Hay letras en el campo !!");
 					}else{
 						if(resultadoConsumo.equals("ok")){
 							System.out.println("Consumo correcto!!");
@@ -235,10 +253,10 @@ import java.awt.event.MouseListener;
 				
 				// mostrar mensajes del campo txtTarifa ...	
 				if(resultadoTarifa.equals("campoVacio")){
-					lblErrorTarifa.setText("Este campo esta vacio !!");
+					lblErrorTarifa.setText("Campo vacio !!");
 				}else{
 					if(resultadoTarifa.equals("letraCampo")){
-						lblErrorTarifa.setText("No pueden haber letras en el campo !!");
+						lblErrorTarifa.setText("Hay letras en el campo !!");
 					}else{
 						if(resultadoTarifa.equals("ok")){
 							System.out.println("Consumo correcto!!");
@@ -249,10 +267,10 @@ import java.awt.event.MouseListener;
 				
 				// mostrar mensajes del campo txtSubsidio ...
 				if(resultadoSubsidio.equals("campoVacio")){
-					lblErrorSubsidio.setText("Este campo esta vacio !!");
+					lblErrorSubsidio.setText("Campo vacio !!");
 				}else{
 					if(resultadoSubsidio.equals("letraCampo")){
-						lblErrorSubsidio.setText("No pueden haber letras en el campo !!");
+						lblErrorSubsidio.setText("Hay letras en el campo !!");
 					}else{
 						if(resultadoSubsidio.equals("ok")){
 							System.out.println("Consumo correcto!!");
@@ -267,7 +285,7 @@ import java.awt.event.MouseListener;
 					lblErrorAlumbrado.setText("");		
 				}else{
 					if(resultadoAlumbrado.equals("letraCampo")){
-						lblErrorAlumbrado.setText("No pueden haber letras en el campo !!");
+						lblErrorAlumbrado.setText("Hay letras en el campo !!");
 					}else{
 						if(resultadoAlumbrado.equals("ok")){
 							System.out.println("Consumo correcto!!");
@@ -279,7 +297,7 @@ import java.awt.event.MouseListener;
 				
 				// mostrar mensajes del campo txtFecha ...
 				if(resultadoFecha.equals("campoVacio")){
-					lblErrorFecha.setText("Este campo esta vacio !!");
+					lblErrorFecha.setText("Campo vacio !!");
 				}else{
 					if(resultadoFecha.equals("letraCampo")){
 						lblErrorFecha.setText("");
@@ -294,44 +312,43 @@ import java.awt.event.MouseListener;
 			}
 
 		}
-
+		
+		private void crearVentanaContenido() {
+			miContenido = new UIContenido();
+			miContenido.recibirNombre(getNombreUsuario());;
+			miContenido.setVisible(true);
+			this.dispose();
+				
+		}
 		
 		private void conectarLogicaNegocio() {
 
+			miProceso = new ProcesoFactura();
+			
 			try {
-				
+
 			// Se parsean los datos ingresados
 			int consumo = Integer.parseInt(txtConsumo.getText());
 			double tarifa = Double.parseDouble(txtTarifa.getText());
 			double subsidio = Double.parseDouble(txtSubsidio.getText());
 			int alumbrado = Integer.parseInt(txtAlumbrado.getText());
 			
-			// imprimir nombre usuario 
-			System.out.println("####################################");
-			System.out.println("nombre usuario: " + getNombreUsuario());
-			
-			
-			
 			// Conexion a la clase de logica de negocio de nuestra aplicacion
 			miProceso.tomarDatos(consumo, tarifa, subsidio, alumbrado, getNombreUsuario(), txtFecha.getText());
 			
-			// esta varible mostrara el valor a pagar de la factura 
-			int totalPagar = miProceso.mostrarTotal();
+			// muestra el total del valor de la factura a pagar
+			miProceso.mostrarTotal();
 			
-			// Se imprime el valor de toda la factura !!
-			System.out.println("Factura = " + totalPagar);
-			
-			// pasamos a la ui contenido.
-			System.out.println("Ventana UIContenido");
-			miContenido.recibirNombre(getNombreUsuario());;
-			miContenido.setVisible(true);
-			this.dispose();
-			
+			// pasamos a la ui contenido
+			crearVentanaContenido();
+		
 			} catch (Exception errores) {
 				System.out.println("Error en el sistema");
 			}
 			
 		}
+
+	
 
 		@Override
 		public void mouseEntered(MouseEvent arg0) {

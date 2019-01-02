@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import config.Conexion;
 import vo.Factura;
@@ -59,7 +60,74 @@ public class FacturaDao {
 		
 	}
 
+	public ArrayList<Factura> listaFacturas (String nombreUsuario){
+	
+		iniciarConexion();
+		connection = conexion.getConexion();
+	
+		Factura miFactura = null;
+		ArrayList<Factura> lista = null;
+	
+		String consulta = "SELECT * FROM factura WHERE usuarioFactura = ?;";
+		
+		try {
+			
+			lista = new ArrayList<>();
+					
+			statement=connection.prepareStatement(consulta);
+			statement.setString(1, nombreUsuario);
+			result = statement.executeQuery();
+			
+			while(result.next()){
+				miFactura = new Factura();
+				miFactura.setConsumoActivo(result.getInt("consumoActivo"));		
+				miFactura.setSubsidioNacion(result.getInt("subsidioNacion"));		
+				miFactura.setAlumbradoPublico(result.getInt("alumbradoPublico"));		
+				miFactura.setTotalPagar(result.getInt("totalPagar"));		
+				miFactura.setFechaFactura(result.getString("fechaFactura"));		
+				
+				lista.add(miFactura);
+				
+			}
+			
+		} catch (Exception e) {
+			System.out.println("Error en el method listaFacturas()");
+			System.out.println(e.getMessage());
+	
+		}
+		
+		conexion.desconectar();
+		
+		return lista;
+	}
 
-
+	
+public String eliminarFactura(String fecha){
+		
+	// elimina las facturas por medio de la fecha de vencimiento
+		String estado = "";
+		
+		iniciarConexion();
+		connection = conexion.getConexion();
+		
+		String consulta = "DELETE FROM factura WHERE fechaFactura = ?;";
+		
+		try {	
+			statement =	connection.prepareStatement(consulta);
+			statement.setString(1, fecha);
+			
+			statement.execute();			
+			
+			estado = "ok";
+			
+			} catch (SQLException e) {			
+					System.out.println("Error en el method eliminarFactura()");
+					System.out.println(e.getMessage());
+			}
+		
+			conexion.desconectar();
+	
+		return estado;
+	}
 
 }

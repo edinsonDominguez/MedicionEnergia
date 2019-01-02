@@ -4,7 +4,7 @@ CREATE DATABASE medienergia;
 
 USE medienergia;
 
-CREATE TABLE depto(
+CREATE TABLE dept(
 
 codigoDept TINYINT,
 nombreDept VARCHAR(25),
@@ -43,7 +43,7 @@ deptUsuario TINYINT,
 passwUsuario VARCHAR(120),
 
 PRIMARY KEY(nombreUsuario),
-FOREIGN KEY(deptUsuario) REFERENCES depto(codigoDept)
+FOREIGN KEY(deptUsuario) REFERENCES dept(codigoDept)
 
 );
 
@@ -68,11 +68,16 @@ FOREIGN KEY(usuarioFactura) REFERENCES usuario(nombreUsuario)
 
 CREATE TABLE CompoCasa(
 
+idCompoCasa MEDIUMINT AUTO_INCREMENT,
 nombreCompo VARCHAR(30),
 vatiosCompo TINYINT,
 usuarioCompo VARCHAR(25),
+horaCompo TINYINT,
+precioDia MEDIUMINT,
+precioSemana MEDIUMINT,
+precioMes MEDIUMINT,
 
-PRIMARY KEY(nombreCompo),
+PRIMARY KEY(idCompoCasa),
 FOREIGN KEY(usuarioCompo) REFERENCES usuario(nombreUsuario)
 
 );

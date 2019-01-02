@@ -5,15 +5,13 @@ public class Domestico {
 	String usuarioCompo;	
 	String nombreCompo;
 	
-	int vatios;
-	int horasConsumo;
+	double vatios;
+	double horasConsumo;
 	
-	int valorMes;
-	int valorSemana;
-	int valorDia;
 	
-	int consumoWhDia;
-	
+	double precioDia;
+	double precioSemana;
+	double precioMes;
 	
 	
 	public String getNombreCompo() {
@@ -22,48 +20,46 @@ public class Domestico {
 	public void setNombreCompo(String nombreCompo) {
 		this.nombreCompo = nombreCompo;
 	}
-	public int getVatios() {
-		return vatios;
-	}
-	public void setVatios(int vatios) {
-		this.vatios = vatios;
-	}
+	
 	public String getUsuarioCompo() {
 		return usuarioCompo;
 	}
 	public void setUsuarioCompo(String usuarioCompo) {
 		this.usuarioCompo = usuarioCompo;
 	}
-	public int getHorasConsumo() {
+	public double getPrecioDia() {
+		return precioDia;
+	}
+	public void setPrecioDia(double precioDia) {
+		this.precioDia = precioDia;
+	}
+	public double getPrecioSemana() {
+		return precioSemana;
+	}
+	public void setPrecioSemana(double precioSemana) {
+		this.precioSemana = precioSemana;
+	}
+	public double getPrecioMes() {
+		return precioMes;
+	}
+	public void setPrecioMes(double precioMes) {
+		this.precioMes = precioMes;
+	}
+	public double getVatios() {
+		return vatios;
+	}
+	public void setVatios(double vatios) {
+		this.vatios = vatios;
+	}
+	public double getHorasConsumo() {
 		return horasConsumo;
 	}
-	public void setHorasConsumo(int horasConsumo) {
+	public void setHorasConsumo(double horasConsumo) {
 		this.horasConsumo = horasConsumo;
 	}
-	public int getValorMes() {
-		return valorMes;
-	}
-	public void setValorMes(int valorMes) {
-		this.valorMes = valorMes;
-	}
-	public int getValorSemana() {
-		return valorSemana;
-	}
-	public void setValorSemana(int valorSemana) {
-		this.valorSemana = valorSemana;
-	}
-	public int getValorDia() {
-		return valorDia;
-	}
-	public void setValorDia(int valorDia) {
-		this.valorDia = valorDia;
-	}
-	public int getConsumoWhDia() {
-		return consumoWhDia;
-	}
-	public void setConsumoWhDia(int consumoWhDia) {
-		this.consumoWhDia = consumoWhDia;
-	}
-
+	
+	
+	
+	
 	
 }

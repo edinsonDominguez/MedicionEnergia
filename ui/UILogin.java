@@ -1,5 +1,6 @@
 package ui;
 
+import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -18,12 +19,14 @@ public class UILogin extends JFrame implements MouseListener {
 	// variables de diseño
 	Componentes com;
 	FormatoPosicion pos;
-	UIRegistroUsuario miRegistroUsuario;
 	
 	//variables de logica
 	ProcesoLogin miLogin;
 	ValidarCampos validar;
+	
+	// ventanas
 	UIContenido miContenido;
+	UIRegistroUsuario miRegistroUsuario;
 	
 	// elementos de la (ui)
 	JTextField txtUsuario, txtPass;
@@ -36,20 +39,18 @@ public class UILogin extends JFrame implements MouseListener {
 	// mensajes de validacion
 	String estadoUsuario = "", estadoPass = "";
 	
-	// method contructor
+	
+	// metodo constructor
 	public UILogin(){
-		System.out.println("Estamos en la clase (ui) UILogin");
-
 		
+		System.out.println("Cargando la ventana UILogin");
+
 		// inicializamos las variables 
-		miContenido = new UIContenido();
 		com = new Componentes();
 		pos = new FormatoPosicion();
-		miRegistroUsuario = new UIRegistroUsuario();
-		validar = new ValidarCampos();
-		miLogin = new ProcesoLogin();
-		
+	
 		setSize(1260, 720);
+		setTitle("Login.");
 		setLocationRelativeTo(null);
 	
 		componentes();	
@@ -104,6 +105,8 @@ public class UILogin extends JFrame implements MouseListener {
 		
 		txtPass = new JPasswordField();
 		txtPass.setBounds(pos.fColB, pos.fRow5, 160, 30);
+		txtPass.setBackground(Color.decode("#bdbdbd"));
+		txtPass.setBorder(null);
 		form.add(txtPass);
 		
 		lblErrorPass = com.lblValidacion("");
@@ -116,12 +119,12 @@ public class UILogin extends JFrame implements MouseListener {
 		btnRegistrar.addMouseListener(this);
 		form.add(btnRegistrar);
 		
-		JLabel lblMensaje = com.lblCampo("si no tienes cuenta ");
-		lblMensaje.setBounds(pos.fColB, pos.fRow9, 400, 30);
+		JLabel lblMensaje = com.lblCampo("Si no tienes cuenta ");
+		lblMensaje.setBounds(pos.fColB, pos.fRow9, 200, 30);
 		form.add(lblMensaje);
 		
-		desplazar = com.lblCampo("Registrate ");
-		desplazar.setBounds(pos.fColE, pos.fRow9, 90, 30);
+		desplazar = com.lblLink("Registrate ");
+		desplazar.setBounds(220, pos.fRow9, 90, 30);
 		desplazar.addMouseListener(this);
 		form.add(desplazar);
 		
@@ -131,13 +134,14 @@ public class UILogin extends JFrame implements MouseListener {
 	public void mouseClicked(MouseEvent e) {
 		
 		if(desplazar == e.getSource()){
+			
+			miRegistroUsuario = new UIRegistroUsuario();
 			miRegistroUsuario.setVisible(true);
 			this.dispose();
 		}
 		
 		if(btnRegistrar == e.getSource()){
-			System.out.println("Presiono en iniciar Sesion");
-		
+
 			imprimirResultados();
 			
 		}
@@ -145,6 +149,8 @@ public class UILogin extends JFrame implements MouseListener {
 	}
 
 	private void imprimirResultados() {
+		
+		validar = new ValidarCampos();
 		
 		// asignamos las validaciones en los mensajes 
 		estadoUsuario = validar.CamposRegistroUsuario(txtUsuario.getText());
@@ -182,6 +188,8 @@ public class UILogin extends JFrame implements MouseListener {
 
 	private void conectarLogica() {
 		
+		miLogin = new ProcesoLogin();
+		
 		Usuario miUsuario = miLogin.buscarUsuario(txtUsuario.getText());
 		
 		if(miUsuario != null){
@@ -202,7 +210,10 @@ public class UILogin extends JFrame implements MouseListener {
 				System.out.println("Ventana de Contenido");
 				if(miUsuario.getNombre() == null){
 					System.out.println("UIContenido no Generado");
-				}else{
+				
+				}else{	
+					miContenido = new UIContenido();
+		
 					miContenido.recibirNombre(miUsuario.getNombre());
 					miContenido.setVisible(true);
 					this.dispose();

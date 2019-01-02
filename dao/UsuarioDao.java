@@ -21,6 +21,7 @@ public class UsuarioDao {
 		// Este metodo tendra las varibles de conexion a la base de datos
 		connection = null;
 		conexion = new Conexion();
+		
 		statement = null;
 		result = null;
 		
@@ -57,12 +58,12 @@ public class UsuarioDao {
 	
 	
 	public ArrayList<String> listaDpto(){
-		//este method trae toda la lista de paises en la base de datos 
+		//este method trae toda la lista de Departamentos en la base de datos 
 		iniciarConexion();
 		
 		ArrayList<String> lista = new ArrayList<>();
 		connection = conexion.getConexion();
-		String consulta = "SELECT * FROM depto ORDER BY nombreDept";
+		String consulta = "SELECT * FROM dept ORDER BY nombreDept";
 		
 		try {	
 			statement =	connection.prepareStatement(consulta);

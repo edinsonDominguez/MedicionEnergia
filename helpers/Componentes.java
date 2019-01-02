@@ -5,10 +5,12 @@ import java.awt.Font;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JSeparator;
 import javax.swing.JTextField;
 
 public class Componentes implements MouseListener {
@@ -42,15 +44,32 @@ public class Componentes implements MouseListener {
 		return formulario;
 	}
 	
+	public JLabel logo(String url){
+		
+		JLabel logo = new JLabel();
+		logo.setBounds(10, 10, 600, 100);
+		logo.setIcon(new ImageIcon(getClass().getResource(url)));
+		
+		return logo;
+	}
+	
 	public JPanel header(){
+		
+		String mensaje = "/ima/AppIcono120px.png";
+		
 		
 		JPanel header = new JPanel();		
 		header.setLayout(null);
 		header.setBackground(Color.decode("#424242"));
 		
+		
+		JLabel logo = new JLabel();
+		logo.setBounds(10, 10, 600, 100);
+		logo.setIcon(new ImageIcon(getClass().getResource(mensaje)));
+		header.add(logo);
+		
 		return header;
 	}
-	
 	
 	public JLabel tituloPrincipal(String nombreLabel){
 		// este componente es para el Titulo Principal 
@@ -68,7 +87,6 @@ public class Componentes implements MouseListener {
 		return lblValidacion;
 	}
 	
-	
 	public JLabel lblCampo(String nombre){
 		// Este componente es para los campos de registro
 		JLabel lblCampo = new JLabel(nombre);
@@ -77,28 +95,35 @@ public class Componentes implements MouseListener {
 		return lblCampo;
 	}
 	
-	
 	public JTextField input(){
 		// Este componente es para los inputs o campos de Texto
 		JTextField entrada = new JTextField();
 		entrada.setForeground(Color.decode("#424242"));
-		entrada.setFont(new Font("Arial", Font.CENTER_BASELINE, 14));
+		entrada.setFont(new Font("Arial", Font.CENTER_BASELINE, 16));
+		entrada.setBackground(Color.decode("#bdbdbd"));
+		entrada.setBorder(null);
 		return entrada;
 	}
-	
 	
 	public JButton botonRegistro(String nombre){
 		
 		JButton botonRegistro = new JButton(nombre);
-		
-		
+		botonRegistro.setBackground(Color.decode("#bdbdbd"));
+		botonRegistro.setOpaque(true);
+		botonRegistro.setBorder(null);
 		return botonRegistro;
 	}
 
 	public JButton botonSalir(String nombre){
-		btnSalir = new JButton(nombre);
+		// EL boton que se sale de la aplicacion
+		btnSalir = new JButton("");
 		btnSalir.addMouseListener(this);
-		btnSalir.setBounds(pos.colG, pos.row11, 120, 40);
+		btnSalir.setBounds(1130, pos.row11, 90, 80);
+		btnSalir.setToolTipText("Salir de MediEnergia");
+		btnSalir.setBackground(Color.decode("#bdbdbd"));
+		btnSalir.setOpaque(true);
+		btnSalir.setBorder(null);
+		btnSalir.setIcon(new ImageIcon(getClass().getResource("/ima/icono_apagar.png")));
 		return btnSalir;
 	}
 	
@@ -114,10 +139,11 @@ public class Componentes implements MouseListener {
 		
 		JPasswordField pass = new JPasswordField();
 		pass.setForeground(Color.decode("#424242"));
+		pass.setBackground(Color.decode("#bdbdbd"));
+		pass.setBorder(null);
 		pass.setFont(new Font("Arial", Font.CENTER_BASELINE, 14));
 		return pass;
 	}
-	
 	
 	public JPanel aside(){
 		
@@ -126,7 +152,6 @@ public class Componentes implements MouseListener {
 		aside.setLayout(null);
 		return aside;
 	}
-	
 	
 	public JLabel opcionUsuario(String nombre){
 		JLabel opcion = new JLabel(nombre);
@@ -152,8 +177,18 @@ public class Componentes implements MouseListener {
 		JLabel tituloSection = new JLabel(nombre);
 		tituloSection.setForeground(Color.decode("#424242"));
 		tituloSection.setFont(new Font("Arial", Font.CENTER_BASELINE, 26));
-		tituloSection.setBounds(20,20, 200, 40);
+		tituloSection.setBounds(20,10, 200, 40);
+		
+		
+		
 		return tituloSection;
+	}
+	
+	public JSeparator linea() {
+
+		JSeparator miLinea = new JSeparator();
+		miLinea.setBackground(Color.decode("#424242"));
+		return miLinea;
 	}
 	
 	public JLabel subtituloSection(String nombre){
@@ -163,8 +198,7 @@ public class Componentes implements MouseListener {
 		subTitulo.setFont(new Font("Arial", Font.CENTER_BASELINE, 18));
 		return subTitulo;
 	}
-	
-	
+
 	public JLabel lblResultado(){
 		
 		JLabel lblResultado = new JLabel();
@@ -172,11 +206,12 @@ public class Componentes implements MouseListener {
 		return lblResultado;
 	}
 	
-	public JLabel lblMensajesInformacion(){
+	public JLabel lblLink(String nombreLink){
 		
-		JLabel lblMensaje = new JLabel();
+		JLabel lblMensaje = new JLabel(nombreLink);
 		lblMensaje.setFont(new Font("Arial", Font.CENTER_BASELINE, 16));
-		lblMensaje.setBackground(Color.decode("#ffffff"));
+		// Color.decode("#0d47a1")
+		lblMensaje.setForeground(Color.BLUE);
 		// se debe cambiar el color a azul
 		return lblMensaje;
 	}
@@ -191,13 +226,21 @@ public class Componentes implements MouseListener {
 	
 	}
 	
+	public JLabel lblResultadoElectro(){
+	
+		JLabel subTitulo = new JLabel();
+		subTitulo.setForeground(Color.decode("#424242"));
+		subTitulo.setFont(new Font("Arial", Font.CENTER_BASELINE, 16));
+		return subTitulo;
+	
+	}
+	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		
 		if(btnSalir == e.getSource()){
 			System.exit(0);
 		}
-		
 		
 		
 	}
@@ -224,4 +267,6 @@ public class Componentes implements MouseListener {
 		// TODO Auto-generated method stub
 		
 	}
+
+
 }

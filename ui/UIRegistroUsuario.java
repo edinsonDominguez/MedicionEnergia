@@ -15,9 +15,9 @@ import vo.Usuario;
 public class UIRegistroUsuario extends JFrame implements MouseListener{
 
 	private JPanel contentPane;
-	private JTextField txtUsuario, txtCorreo;
+	private JTextField txtUsuario, txtCorreo,txtContrasenia;
 	private JButton btnContinuar;
-	private JPasswordField txtContrasenia;
+	
 	// Lista Despegable de departamentos
 	private JComboBox<String> comboDpto;
 	
@@ -34,21 +34,24 @@ public class UIRegistroUsuario extends JFrame implements MouseListener{
 	// variables de diseño
 	Componentes com;
 	FormatoPosicion pos;
+	
+	// ventanas
 	UIRegistroFactura miFactura;
 	
 	// method constructor
 	public UIRegistroUsuario(){
 		
-		System.out.println("Estamos en la clase UIRegistroUsuario");
+		System.out.println("Cargando la ventana UIRegistroUsuario ...");
 		
 		// inicializamos las varibles
-		miFactura = new UIRegistroFactura();
 		miProceso = new ProcesoUsuario();
+		
 		com = new Componentes();
 		pos = new FormatoPosicion();
-		validar = new ValidarCampos();
+		
 		
 		setSize(1260, 720);
+		setTitle("Registro usuario.");
 		setLocationRelativeTo(null);
 		componentes();
 	}
@@ -124,7 +127,7 @@ public class UIRegistroUsuario extends JFrame implements MouseListener{
 				lblContrasenia.setBounds(pos.fColB, pos.fRow8, 120, 30);
 				form.add(lblContrasenia);
 				
-				txtContrasenia = new JPasswordField();
+				txtContrasenia = com.password();
 				txtContrasenia.setBounds(pos.fColB, pos.fRow9, 160, 30);
 				form.add(txtContrasenia);
 				
@@ -155,7 +158,7 @@ public class UIRegistroUsuario extends JFrame implements MouseListener{
 	public void mouseClicked(MouseEvent e) {
 		
 		if(btnContinuar == e.getSource()){
-			System.out.println("Presiono en continuar");
+			
 			System.out.println("Select: " + comboDpto.getSelectedIndex());
 			imprimirResultados();
 		}
@@ -166,6 +169,8 @@ public class UIRegistroUsuario extends JFrame implements MouseListener{
 
 	private void imprimirResultados() {
 				
+		validar = new ValidarCampos();
+		
 	// Asignamos en las variables de validacion el metodo que valida campos en registro usuario
 		estadoUsuario = validar.CamposRegistroUsuario(txtUsuario.getText().trim());
 		estadoCorreo = validar.CamposRegistroUsuario(txtCorreo.getText().trim());
@@ -181,7 +186,7 @@ public class UIRegistroUsuario extends JFrame implements MouseListener{
 		
 	if(estadoUsuario.equals("ok") && estadoCorreo.equals("ok") && estadoPass.equals("ok")
 			&& !(estadoDpto == 0)){
-		System.out.println("validaciones Correctas");	
+	
 		
 		lblErrorUsuario.setText("");
 		lblErrorCorreo.setText("");
@@ -247,7 +252,9 @@ public class UIRegistroUsuario extends JFrame implements MouseListener{
 		}else{
 			
 			if(respuesta.equals("ok")){			
-				System.out.println("Registro !!");
+				
+				miFactura = new UIRegistroFactura();
+				
 				miFactura.recibirNombre(txtUsuario.getText());
 				miFactura.setVisible(true);
 				this.dispose();

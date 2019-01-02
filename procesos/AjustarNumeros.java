@@ -8,24 +8,21 @@ public class AjustarNumeros {
 	// method constructor
 	
 	public AjustarNumeros(){
-		System.out.println("Esta en la clase AjustarNumeros");
+
 	}
 	
 	
 	public int ajustarCuenta(double consumoActiva) {
 		// Este metodo ajusta el numero en ceros 
 		
-		System.out.println("Ingreso al method ajustarCuenta() de la clase AjustarNumeros ");
 		int numeroEgresado = 0;
 		
 		double ultimoNumero = consumoActiva % 10;
 
 		// Hacemos un casting para eliminar los decimales
 		int castingNumero = (int)ultimoNumero;
+	
 		
-		
-		System.out.println("Ultimo numero " + castingNumero);
-			
 		if(castingNumero == 1){
 			consumoActiva = consumoActiva - 1;
 		}else{
@@ -76,9 +73,7 @@ public class AjustarNumeros {
 		
 		// Se realiza el casting en el variable que recibimos para eliminar los decimales
 		numeroEgresado = (int) consumoActiva; 
-		
-		System.out.println("El numero egresado del method ajustarCuenta es " + numeroEgresado);
-		
+	
 		return numeroEgresado;
 	}
 

@@ -7,7 +7,7 @@ public class ValidarCampos {
 	//method constructor
 	
 	public ValidarCampos(){
-		System.out.println("Estamos en la clase ValidarCampos");
+
 	}
 	
 	
@@ -18,6 +18,10 @@ public class ValidarCampos {
 		
 		// esta variable comprueba si en los campos no hay letras
 		double comprobar = 0; 
+	
+		if(comprobar == 0){
+			System.out.println("Comprobacion activa");
+		}
 		
 		if(contenidoCampo.equals("")){
 			respuesta = "campoVacio";
@@ -27,8 +31,7 @@ public class ValidarCampos {
 		if(!(contenidoCampo.equals(""))){
 			try {
 				comprobar = Double.parseDouble(contenidoCampo);
-				System.out.println("Variable comprobar == " + comprobar);
-				
+		
 			} catch (Exception e) {
 				respuesta = "letraCampo";
 			}		

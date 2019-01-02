@@ -1,5 +1,7 @@
 package procesos;
 
+import java.util.ArrayList;
+
 import dao.FacturaDao;
 import vo.Factura;
 
@@ -17,9 +19,11 @@ public class ProcesoFactura {
 	
 	
 	public ProcesoFactura(){
-		System.out.println("esta en la clase ProcesoFactura");
+
 		daoFactura = new FacturaDao();
+		
 		miFactura = new Factura();
+		
 		ajuste = new AjustarNumeros();
 	}
 																		//alumbrado publico
@@ -31,9 +35,7 @@ public class ProcesoFactura {
 	
 		//subsidioNacion
 		subsidioNacion = operarSubsidioNacion(subsidio);
-		
-		System.out.println("Subsidio Nacion: " + subsidioNacion);
-		
+
 		// introducir los datos en el objecto factura
 		miFactura.setAlumbradoPublico((int) alumbrado);
 		miFactura.setNombreUsuario(nombreUsuario);
@@ -51,10 +53,8 @@ public class ProcesoFactura {
 		
 		// casting en el subsidio
 		int subsidioBruto = (int)numeroOperacion;
-		System.out.println("El valor del method operarSubsidioNacion es " + subsidioBruto);
 		
 		int precioAjustado = ajuste.ajustarCuenta(subsidioBruto);
-		System.out.println("subsidio con ajuste == " + precioAjustado);
 		
 		return precioAjustado;
 	}
@@ -66,12 +66,9 @@ public class ProcesoFactura {
 		valor = consumo * tarifa;
 		
 		int consumoActivaMethod = (int) valor;
-		System.out.println("consumoActiva: " + consumoActivaMethod);
 		
 		// Este es valor del consumoActivaMethod pero con el precio ajustado..
 		int numeroAjustado = ajuste.ajustarCuenta(consumoActivaMethod);
-	
-		System.out.println("consumoActiva con ajuste " + numeroAjustado);
 		
 		return numeroAjustado;
 	}
@@ -79,13 +76,10 @@ public class ProcesoFactura {
 	
 
 
-	public int mostrarTotal(){
+	public void mostrarTotal(){
 		
 		int total = 0;
-		
-		System.out.println("Total a pagar: " + totalPagar);
-		System.out.println("**************************************+++");
-		
+			
 		total = ajuste.ajustarPrecioTotal(totalPagar);
 		
 		// enviar los datos a la Base de datos 
@@ -100,11 +94,17 @@ public class ProcesoFactura {
 			daoFactura.registrarFactura(miFactura);
 			
 
-		System.out.println("Precio total con ajuste " + total);
-	
-		
-		return total;
 	}
 
 	
+	public ArrayList<Factura> listaFacturas(String nombreUsuario){
+		
+		return daoFactura.listaFacturas(nombreUsuario);
+	}
+	
+	
+	public String eliminarFactura(String fecha){
+		
+		return daoFactura.eliminarFactura(fecha);
+	}
 }
